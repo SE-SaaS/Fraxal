@@ -1,0 +1,28 @@
+# Normalize line endings: LF in the repo, native in the working tree.
+# Keeps Windows checkouts from producing CRLF-only diffs, and keeps
+# Vercel's Linux builders reading the same bytes we committed.
+* text=auto eol=lf
+
+# Windows-only scripts must stay CRLF or they break when executed.
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# Explicit binaries — never touch these.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.avif binary
+*.ico  binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary
+*.otf  binary
+*.mp4  binary
+*.webm binary
+*.pdf  binary
+
+# Lockfile: generated, collapse it in diffs and reviews.
+package-lock.json linguist-generated=true -diff
