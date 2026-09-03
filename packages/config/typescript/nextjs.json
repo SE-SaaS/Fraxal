@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "@repo Next.js",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "jsx": "preserve",
+    "allowJs": true,
+    "incremental": true,
+    "plugins": [{ "name": "next" }]
+  }
+
+  // NOTE: `paths` is deliberately NOT set here. TypeScript resolves `paths`
+  // relative to the tsconfig that DECLARES them, so an alias defined in this
+  // package would point into packages/config, not into the consuming app.
+  // Each app declares its own `paths` (`@/*` -> `./src/*`).
+}
