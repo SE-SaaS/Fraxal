@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/*
+ * Tailwind cannot see class names in this package unless we point it here.
+ * Path is relative to THIS file, so it resolves correctly no matter which app
+ * imports the stylesheet.
+ */
+@source "../**/*.{ts,tsx}";
+
+/*
+ * ── THE TOKEN CONTRACT ────────────────────────────────────────────────────
+ *
+ * Every component in this package styles itself with these names and nothing
+ * else. No raw hex, no `bg-blue-500`, ever. An app re-declares `@theme` after
+ * importing this file and the same components render as a different brand.
+ *
+ * Values below are neutral fallbacks — they exist so the package renders
+ * sanely in isolation, not because any site should ship them.
+ */
+@theme {
+  /* Surfaces, back to front */
+  --color-canvas: #ffffff;
+  --color-surface: #f6f7f8;
+  --color-overlay: #ffffff;
+
+  /* Text, strongest to weakest */
+  --color-ink: #0b0d0e;
+  --color-ink-muted: #55606a;
+  --color-ink-subtle: #8b959e;
+
+  /* Lines and edges */
+  --color-line: #e3e6e9;
+  --color-line-strong: #c9ced4;
+
+  /* The one colour a brand actually owns */
+  --color-accent: #2f6feb;
+  --color-accent-ink: #ffffff;
+  --color-accent-muted: #e8effd;
+
+  /* Supporting accents. A brand with a gradient or a multi-hue mark needs more
+     than one; a brand with a single colour just leaves these pointing at it. */
+  --color-accent-2: #2f6feb;
+  --color-accent-3: #2f6feb;
+
+  /* Feedback */
+  --color-danger: #d33c3c;
+  --color-success: #2f9e5f;
+
+  /* Type — apps override with next/font variables */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+
+  /* Shape */
+  --radius-control: 0.5rem;
+  --radius-panel: 0.875rem;
+
+  /* Motion — one duration, honoured everywhere */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-ui: 180ms;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Focus ring is a token too — brands change its colour, never its presence. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
