@@ -1,0 +1,126 @@
+@import "@repo/ui/styles/base.css";
+
+/*
+ * Brand layer — taken from the existing wave landing page, not invented.
+ *
+ * This file overrides the token contract from @repo/ui and nothing else. The
+ * three accents are the same three the hero canvas draws with, so the waves and
+ * the UI are guaranteed to stay in the same palette.
+ */
+@theme {
+  --color-canvas: #06060c;
+  --color-surface: #0b0b14;
+  --color-overlay: #11111c;
+
+  --color-ink: #eae8f2;
+  --color-ink-muted: #7d7796;
+  --color-ink-subtle: #5a5570;
+
+  /* Hairlines are accent-tinted rather than grey — it's what gives the dark
+     ground its faint red cast instead of looking like flat charcoal. */
+  --color-line: rgba(232, 41, 74, 0.1);
+  --color-line-strong: rgba(232, 41, 74, 0.32);
+
+  --color-accent: #e8294a;
+  --color-accent-ink: #ffffff;
+  --color-accent-muted: rgba(232, 41, 74, 0.06);
+  --color-accent-2: #7b6bb5;
+  --color-accent-3: #4a5fad;
+  /* Gradient partner for the primary — the darker end of every filled button. */
+  --color-accent-deep: #c41f3e;
+
+  --color-danger: #ff5a5a;
+  --color-success: #35d07f;
+
+  /* next/font injects these in layout.tsx. */
+  --font-sans: var(--font-body), "Rajdhani", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), "Orbitron", ui-sans-serif, sans-serif;
+  --font-wordmark: var(--font-wordmark), "Russo One", ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", monospace;
+
+  /* Near-square. The reference uses 2-4px everywhere; rounded corners fight
+     the angular logo. */
+  --radius-control: 2px;
+  --radius-panel: 4px;
+
+  --animate-wave-pulse: wave-pulse 2.5s ease-in-out infinite;
+  --animate-mark-glow: mark-glow 3s ease-in-out infinite;
+  --animate-boot: boot 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* The lockup breathes through all three brand colours, so the glow reads as the
+   same light source as the waves behind it. */
+@keyframes wave-pulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 14px rgba(232, 41, 74, 0.8),
+      0 0 35px rgba(123, 107, 181, 0.6),
+      0 0 80px rgba(74, 95, 173, 0.3);
+    filter: drop-shadow(0 0 18px rgba(232, 41, 74, 0.45));
+  }
+  50% {
+    text-shadow:
+      0 0 22px rgba(232, 41, 74, 1),
+      0 0 55px rgba(123, 107, 181, 0.85),
+      0 0 130px rgba(74, 95, 173, 0.45);
+    filter: drop-shadow(0 0 34px rgba(232, 41, 74, 0.65));
+  }
+}
+
+@keyframes mark-glow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 6px rgba(232, 41, 74, 0.9),
+      0 0 16px rgba(232, 41, 74, 0.5);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(232, 41, 74, 1),
+      0 0 28px rgba(232, 41, 74, 0.7);
+  }
+}
+
+@keyframes boot {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    /* Rajdhani runs small and tight; it needs more line-height than the default. */
+    line-height: 1.75;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+}
+
+/* Lifts light text off the near-black ground — the same trick the logo uses,
+   dialled well down so it reads as presence rather than as neon. */
+@utility text-glow {
+  text-shadow:
+    0 0 14px rgba(232, 41, 74, 0.3),
+    0 0 34px rgba(123, 107, 181, 0.18);
+}
+
+@utility text-gradient {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
