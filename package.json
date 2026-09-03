@@ -1,0 +1,36 @@
+{
+  "name": "websites",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Monorepo: Fraxal company site + marketing portfolio site",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:fraxal": "npm run dev --workspace fraxal",
+    "dev:portfolio": "npm run dev --workspace portfolio",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,mdx,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,mdx,css}\"",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@repo/config": "*",
+    "eslint": "^9.39.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.4.1",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "packageManager": "npm@11.12.1",
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs,cjs,json,css,md,mdx}": "prettier --write"
+  }
+}
