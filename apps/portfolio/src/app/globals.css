@@ -1,0 +1,42 @@
+@import "@repo/ui/styles/base.css";
+
+/*
+ * Portfolio brand layer.
+ *
+ * Same token names as ChaosX, opposite values. This file and the components
+ * in @repo/ui are the whole reason two unrelated-looking sites cost one
+ * component library to maintain.
+ */
+@theme {
+  /* Warm off-white — pure white reads clinical next to the accent. */
+  --color-canvas: #fdfcfa;
+  --color-surface: #f5f2ed;
+  --color-overlay: #ffffff;
+
+  --color-ink: #17130f;
+  --color-ink-muted: #5c534b;
+  --color-ink-subtle: #8f857b;
+
+  --color-line: #e6e0d8;
+  --color-line-strong: #cfc6ba;
+
+  --color-accent: #b4400f;
+  --color-accent-ink: #ffffff;
+  --color-accent-muted: #fbeee7;
+
+  --color-danger: #b3261e;
+  --color-success: #1f6f4a;
+
+  --font-sans: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-app), ui-monospace, monospace;
+
+  /* Softer than ChaosX — editorial, not tooling. */
+  --radius-control: 0.625rem;
+  --radius-panel: 1rem;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+}
