@@ -320,6 +320,8 @@ export const team: Person[] = [
   {
     name: "Ayham al Suwi",
     role: "ML Engineering",
+    github: "https://github.com/AyhamAlsuwi",
+    linkedin: "https://www.linkedin.com/in/ayhamalsuwi",
   },
   {
     name: "Mamoun Yosef",
