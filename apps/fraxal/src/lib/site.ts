@@ -6,6 +6,14 @@
 export const site = {
   name: "Fraxal",
   tagline: "Create · Code · Conquer",
+  /**
+   * The one line under the lockup that says what the company sells.
+   *
+   * Deliberately empty — this is yours to write. The hero renders without it
+   * and nothing looks unfinished; fill in the string and it appears, with the
+   * tagline dropping below it automatically. No other change needed.
+   */
+  headline: "",
   description:
     "Fraxal builds AI systems and the software around them — automation, models, pipelines, and the products they run inside.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
@@ -70,6 +78,59 @@ export const services = [
     title: "Consulting",
     body: "A read on what you have, what it will cost to get where you are going, and what to do first.",
   },
+] as const;
+
+/**
+ * The proof strip, directly under the hero.
+ *
+ * Every figure here is verifiable from the repos or GitHub. Nothing on this
+ * list may be an estimate, a projection, or a client count you cannot name —
+ * the whole point of the section is that it survives being checked.
+ */
+export const proof = [
+  { label: "Competition", value: "1st", detail: "IEEE Jordan AI Modeling 2.0" },
+  { label: "Engineers", value: "4", detail: "ML, vision, systems, art" },
+  { label: "Public projects", value: "6", detail: "on GitHub, readable" },
+  { label: "Best RMSLE", value: "0.198", detail: "under distribution shift" },
+] as const;
+
+/**
+ * The nine services in three groups. Members are service slugs, so the titles
+ * stay in sync with `services` and cannot drift.
+ *
+ * The grouping argues something on its own: model, then the system around it,
+ * then the product it ships inside.
+ */
+export const pillars = [
+  {
+    title: "Intelligence",
+    blurb: "Getting a model to do something useful with your data.",
+    members: ["ai-automation", "ai-modeling", "ai-chatbots"],
+  },
+  {
+    title: "Systems",
+    blurb: "The engineering that makes it run the same way every time.",
+    members: ["pipelines", "systems-engines", "software-process"],
+  },
+  {
+    title: "Product",
+    blurb: "What the people you are building for actually touch.",
+    members: ["websites", "arts", "consulting"],
+  },
+] as const;
+
+/**
+ * PLACEHOLDER — these four steps are mine, not yours.
+ *
+ * A process section is a promise clients will hold you to, so read these and
+ * rewrite them to match how you genuinely run a project. If they do not match,
+ * delete the array and the section stops rendering.
+ */
+export const processSteps = [
+  { title: "Scope", body: "We tell you what it takes, before any money moves." },
+  { title: "Prototype", body: "The riskiest part first, so it fails cheap if it is going to." },
+  { title: "Build", body: "Shipped in slices you can see running, not one delivery at the end." },
+  { title: "Hand over", body: "Documented and readable, so it is yours to maintain without us." },
 ] as const;
 
 /** Order here is the order the storefront renders its sections in. */
@@ -203,6 +264,8 @@ export type Project = {
   note?: string;
   /** Set on personal work so it is never presented as company output. */
   by?: string;
+  /** Shown on the home page. Keep this to three — the rest live on /who-we-are. */
+  featured?: boolean;
 };
 
 /**
@@ -217,6 +280,7 @@ export const projects: Project[] = [
       "An agentic medical assistant that reasons over patient data through multi-agent orchestration, combining pre-trained ML models with relational and vector databases.",
     stack: ["Multi-agent", "Vector DB", "Jupyter"],
     href: "https://github.com/SE-SaaS/Health-Navigator",
+    featured: true,
   },
   {
     name: "Energy Degradation Prediction",
@@ -225,6 +289,7 @@ export const projects: Project[] = [
     stack: ["TabPFN", "Nori-30M", "TabFM"],
     href: "https://github.com/SE-SaaS/energy-degradation-prediction",
     note: "1st place — IEEE Jordan AI Modeling Hackathon 2.0 · RMSLE 0.19877",
+    featured: true,
   },
   {
     name: "Video Captioning",
@@ -232,6 +297,7 @@ export const projects: Project[] = [
       "Samples frames with ffmpeg and sends them to vision models for captions in four voices, then runs an ensemble with a judge model picking the best result.",
     stack: ["VLM ensemble", "ffmpeg", "Python"],
     href: "https://github.com/SE-SaaS/video-captioning",
+    featured: true,
   },
   {
     name: "Team-Finder",
