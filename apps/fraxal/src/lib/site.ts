@@ -89,7 +89,7 @@ export const Services = [
 export const Proof = [
   { label: "Competition", value: "1st", detail: "IEEE Jordan AI Modeling 2.0" },
   { label: "Engineers", value: "4", detail: "ML, vision, systems, art" },
-  { label: "Public projects", value: "6", detail: "on GitHub, readable" },
+  { label: "Domains", value: "5", detail: "medical, energy, vision, engines, web" },
   { label: "Best RMSLE", value: "0.198", detail: "under distribution shift" },
 ] as const;
 
@@ -258,9 +258,12 @@ export type Project = {
   name: string;
   blurb: string;
   stack: string[];
-  href: string;
+  /** Omitted for private work — the card then renders without a link. */
+  href?: string;
   /** Anything genuinely verifiable — a placing, a score. Never invented. */
   note?: string;
+  /** Shows a "Private" tag and suppresses the link. */
+  private?: boolean;
   /** Set on personal work so it is never presented as company output. */
   by?: string;
   /** Shown on the home page. Keep this to three; the rest are on GitHub. */
@@ -318,6 +321,15 @@ export const Projects: Project[] = [
     stack: ["C++", "premake5", "Cross-platform"],
     href: "https://github.com/awshanaqtah/ChaosX",
     note: "In development",
+  },
+  {
+    // TODO: one line on what GravitySort actually does. Deliberately thin
+    // because I do not know, and guessing at your own work is worse than
+    // saying little. Every other blurb here is the repo's own description.
+    name: "GravitySort",
+    blurb: "Sorting algorithm work, kept private.",
+    stack: ["Algorithms"],
+    private: true,
   },
 ];
 

@@ -33,7 +33,11 @@ function SectionHead({ eyebrow, title, lede }: { eyebrow: string; title: string;
 const titleFor = (slug: string) => Services.find((s) => s.slug === slug)?.title ?? slug;
 
 export default function HomePage() {
-  const featured = Projects.filter((project) => project.featured);
+  // Featured first, then the rest. No filtering: /who-we-are is gone, so
+  // anything dropped here is invisible on the whole site.
+  const ordered = [...Projects].sort(
+    (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)),
+  );
 
   return (
     <main id="top">
@@ -156,21 +160,23 @@ export default function HomePage() {
           <SectionHead
             eyebrow="Selected work"
             title="Things we have actually shipped"
-            lede="Public repositories, with the numbers that make them checkable."
+            lede="Engines, models and platforms — shipped for competitions, clients and ourselves."
           />
 
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
-            {featured.map((project) => (
-              <li key={project.name} className="group border border-line bg-[#0b0b14]">
-                <a
-                  href={project.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-full flex-col border border-transparent p-7 transition-colors duration-300 hover:border-accent focus-visible:outline-2 focus-visible:outline-accent"
-                >
-                  <h3 className="font-display text-[0.98rem] font-bold tracking-[0.05em] text-ink transition-colors duration-300 group-hover:text-accent">
-                    {project.name}
-                  </h3>
+            {ordered.map((project) => {
+              const body = (
+                <>
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="font-display text-[0.98rem] font-bold tracking-[0.05em] text-ink transition-colors duration-300 group-hover:text-accent">
+                      {project.name}
+                    </h3>
+                    {project.private ? (
+                      <span className="shrink-0 border border-line px-2 py-0.5 font-mono text-[0.58rem] tracking-[0.12em] text-ink-subtle uppercase">
+                        Private
+                      </span>
+                    ) : null}
+                  </div>
 
                   {project.note ? (
                     <p className="mt-2.5 font-mono text-[0.7rem] leading-relaxed tracking-[0.03em] text-accent">
@@ -192,9 +198,34 @@ export default function HomePage() {
                       </li>
                     ))}
                   </ul>
-                </a>
-              </li>
-            ))}
+                </>
+              );
+
+              const shell =
+                "flex h-full flex-col border border-transparent p-7 transition-colors duration-300";
+
+              return (
+                <li key={project.name} className="group border border-line bg-[#0b0b14]">
+                  {/* Private work renders as a plain card: an anchor with no
+                      href is focusable-but-dead, which is worse than no link. */}
+                  {project.href ? (
+                    <a
+                      href={project.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={cn(
+                        shell,
+                        "hover:border-accent focus-visible:outline-2 focus-visible:outline-accent",
+                      )}
+                    >
+                      {body}
+                    </a>
+                  ) : (
+                    <div className={shell}>{body}</div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
 
           <p className="mt-10 text-sm text-ink-subtle">
