@@ -5,7 +5,7 @@ import { buttonVariants } from "@repo/ui/primitives/button";
 import Link from "next/link";
 import { useState } from "react";
 
-import { services, site } from "@/lib/site";
+import { Services, Site } from "@/lib/site";
 
 type Match = {
   summary: string;
@@ -52,7 +52,7 @@ export function ProjectMatcher() {
     }
   }
 
-  const titleFor = (slug: string) => services.find((s) => s.slug === slug)?.title ?? slug;
+  const titleFor = (slug: string) => Services.find((s) => s.slug === slug)?.title ?? slug;
 
   return (
     <div className="flex flex-col gap-10">
@@ -103,8 +103,8 @@ export function ProjectMatcher() {
           <p className="mt-3 text-pretty text-ink-muted">{error}</p>
           <p className="mt-4 text-sm text-ink-subtle">
             Send it to{" "}
-            <a href={`mailto:${site.email}`} className="text-accent hover:underline">
-              {site.email}
+            <a href={`mailto:${Site.email}`} className="text-accent hover:underline">
+              {Site.email}
             </a>{" "}
             and a person will read it instead.
           </p>
@@ -152,7 +152,7 @@ export function ProjectMatcher() {
 
           <div className="mt-10 flex flex-wrap items-center gap-5 border-t border-line pt-8">
             <a
-              href={`mailto:${site.email}?subject=${encodeURIComponent("Project — " + match.summary.slice(0, 80))}&body=${encodeURIComponent(description)}`}
+              href={`mailto:${Site.email}?subject=${encodeURIComponent("Project — " + match.summary.slice(0, 80))}&body=${encodeURIComponent(description)}`}
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "to-accent-deep h-auto rounded-[2px] border-none bg-gradient-to-br from-accent px-10 py-3.5 text-[0.85rem] font-semibold tracking-[0.12em] uppercase transition-all duration-300 hover:-translate-y-1",

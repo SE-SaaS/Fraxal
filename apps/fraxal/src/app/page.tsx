@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { Logo } from "@/components/logo";
 import { NeuralField } from "@/components/neural-field";
-import { pillars, processSteps, projects, proof, services, site, team } from "@/lib/site";
+import { Pillars, ProcessSteps, Projects, Proof, Services, Site, Team } from "@/lib/site";
 
 /** The reference button treatment: gradient fill, tracked-out caps, hover lift. */
 const CTA_BASE =
@@ -30,10 +30,10 @@ function SectionHead({ eyebrow, title, lede }: { eyebrow: string; title: string;
   );
 }
 
-const titleFor = (slug: string) => services.find((s) => s.slug === slug)?.title ?? slug;
+const titleFor = (slug: string) => Services.find((s) => s.slug === slug)?.title ?? slug;
 
 export default function HomePage() {
-  const featured = projects.filter((project) => project.featured);
+  const featured = Projects.filter((project) => project.featured);
 
   return (
     <main id="top">
@@ -47,24 +47,24 @@ export default function HomePage() {
           <h1>
             <Logo pulse className="text-[clamp(2rem,9vw,4.8rem)]" />
             <span className="sr-only">
-              {site.headline ? ` — ${site.headline}` : ` — ${site.tagline}`}
+              {Site.headline ? ` — ${Site.headline}` : ` — ${Site.tagline}`}
             </span>
           </h1>
 
           {/* Renders only once you write it. Nothing placeholder ships. */}
-          {site.headline ? (
+          {Site.headline ? (
             <p className="font-display mx-auto mt-7 max-w-[22ch] text-[clamp(1rem,2.4vw,1.5rem)] leading-tight font-bold tracking-[0.03em] text-balance text-ink">
-              {site.headline}
+              {Site.headline}
             </p>
           ) : null}
 
           <p
             className={cn(
               "inline-block bg-gradient-to-r from-accent via-accent-2 to-accent-3 px-7 py-1.5 text-[clamp(0.7rem,1.6vw,0.9rem)] font-semibold tracking-[0.4em] text-accent-ink uppercase shadow-[0_0_22px_rgba(232,41,74,0.5),0_0_55px_rgba(123,107,181,0.2)]",
-              site.headline ? "mt-6" : "mt-7",
+              Site.headline ? "mt-6" : "mt-7",
             )}
           >
-            {site.tagline}
+            {Site.tagline}
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-5">
@@ -93,7 +93,7 @@ export default function HomePage() {
       <section className="border-b border-line">
         <Container width="wide" className="px-0 md:px-0">
           <dl className="grid grid-cols-2 gap-px bg-line lg:grid-cols-4">
-            {proof.map((item) => (
+            {Proof.map((item) => (
               <div key={item.label} className="bg-[rgba(232,41,74,0.02)] px-6 py-8 md:px-8">
                 <dt className="font-mono text-[0.6rem] tracking-[0.14em] text-ink-subtle uppercase">
                   {item.label}
@@ -119,7 +119,7 @@ export default function HomePage() {
           />
 
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
-            {pillars.map((pillar) => (
+            {Pillars.map((pillar) => (
               <li
                 key={pillar.title}
                 className="group border border-line bg-[rgba(232,41,74,0.02)] p-8 transition-colors duration-300 hover:border-line-strong hover:bg-[rgba(232,41,74,0.05)]"
@@ -147,7 +147,7 @@ export default function HomePage() {
 
       {/* ── 04 · Selected work ─────────────────────────────────────────────
           The claim, turned into evidence. Three only — the rest live on
-          /who-we-are, so the home page stays short. */}
+          the GitHub org, so the home page stays short. */}
       <section
         id="work"
         className="scroll-mt-24 border-y border-line bg-[rgba(232,41,74,0.02)] py-20"
@@ -198,9 +198,14 @@ export default function HomePage() {
           </ul>
 
           <p className="mt-10 text-sm text-ink-subtle">
-            <Link href="/who-we-are" className="text-accent hover:underline">
+            <a
+              href={Site.github}
+              target="_blank"
+              rel="noreferrer"
+              className="text-accent hover:underline"
+            >
               Everything we have built →
-            </Link>
+            </a>
           </p>
         </Container>
       </section>
@@ -208,7 +213,7 @@ export default function HomePage() {
       {/* ── 05 · How we work ───────────────────────────────────────────────
           Numbering is honest here: it is a real sequence, not decoration.
           Renders nothing if the steps array is emptied. */}
-      {processSteps.length > 0 ? (
+      {ProcessSteps.length > 0 ? (
         <section className="py-20">
           <Container width="wide">
             <SectionHead
@@ -218,7 +223,7 @@ export default function HomePage() {
             />
 
             <ol className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {processSteps.map((step, i) => (
+              {ProcessSteps.map((step, i) => (
                 <li key={step.title} className="border-t-2 border-accent pt-5">
                   <span className="font-mono text-[0.68rem] tracking-[0.14em] text-accent">
                     {String(i + 1).padStart(2, "0")}
@@ -246,7 +251,7 @@ export default function HomePage() {
           />
 
           <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {team.map((person) => {
+            {Team.map((person) => {
               const links = [
                 { label: "GitHub", href: person.github },
                 { label: "LinkedIn", href: person.linkedin },

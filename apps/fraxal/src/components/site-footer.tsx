@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { FraxalMark } from "@/components/fraxal-mark";
 import { Logo } from "@/components/logo";
-import { site } from "@/lib/site";
+import { Site } from "@/lib/site";
 
 export function SiteFooter() {
   return (
@@ -13,7 +13,7 @@ export function SiteFooter() {
           <Logo className="text-base" mark={<FraxalMark className="h-[1.3em]" />} />
 
           <ul className="flex flex-wrap gap-x-7 gap-y-2">
-            {site.nav.map((item) => (
+            {Site.nav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
@@ -28,13 +28,13 @@ export function SiteFooter() {
 
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6">
           <a
-            href={`mailto:${site.email}`}
+            href={`mailto:${Site.email}`}
             className="text-sm text-ink-subtle transition-colors duration-300 hover:text-accent"
           >
-            {site.email}
+            {Site.email}
           </a>
           <p className="font-display text-[0.78rem] tracking-[0.08em] text-ink-subtle">
-            © {new Date().getFullYear()} {site.name}
+            © {new Date().getFullYear()} {Site.name}
           </p>
         </div>
       </Container>

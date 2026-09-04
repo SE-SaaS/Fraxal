@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeader } from "@/components/page-header";
-import { assetCategories, assets } from "@/lib/site";
+import { AssetCategories, Assets } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Assets",
@@ -22,8 +22,8 @@ export default function AssetsPage() {
         lede="Every one of these started as work for a project and turned out to be worth building properly. Buy the piece you need, or bring us the problem and we will tell you whether one of these fits."
       />
 
-      {assetCategories.map((category) => {
-        const items = assets.filter((asset) => asset.category === category.id);
+      {AssetCategories.map((category) => {
+        const items = Assets.filter((asset) => asset.category === category.id);
         if (items.length === 0) return null;
 
         return (

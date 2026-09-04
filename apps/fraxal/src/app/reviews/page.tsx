@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeader } from "@/components/page-header";
-import { reviews } from "@/lib/site";
+import { Reviews } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Reviews",
@@ -21,7 +21,7 @@ export default function ReviewsPage() {
 
       <section className="py-16">
         <Container width="wide">
-          {reviews.length === 0 ? (
+          {Reviews.length === 0 ? (
             // Honest empty state. Inventing testimonials would mean publishing
             // fake quotes under invented people's names.
             <div className="mx-auto max-w-[52ch] border border-line p-12 text-center">
@@ -42,7 +42,7 @@ export default function ReviewsPage() {
             </div>
           ) : (
             <ul className="grid gap-6 md:grid-cols-2">
-              {reviews.map((review) => (
+              {Reviews.map((review) => (
                 <li
                   key={`${review.author}-${review.project}`}
                   className="border border-line bg-[rgba(232,41,74,0.02)] p-8"

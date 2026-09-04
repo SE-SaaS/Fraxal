@@ -1,13 +1,13 @@
 import { Output, generateText } from "ai";
 import { z } from "zod";
 
-import { services } from "@/lib/site";
+import { Services } from "@/lib/site";
 
 // Long enough for a considered answer, short enough that a stuck request fails
 // rather than hanging the page.
 export const maxDuration = 30;
 
-const SLUGS = services.map((s) => s.slug) as [string, ...string[]];
+const SLUGS = Services.map((s) => s.slug) as [string, ...string[]];
 
 const schema = z.object({
   summary: z
@@ -31,7 +31,7 @@ const schema = z.object({
     .describe("Questions worth asking before quoting. Empty if the brief is already clear."),
 });
 
-const CATALOGUE = services.map((s) => `- ${s.slug} (${s.title}): ${s.body}`).join("\n");
+const CATALOGUE = Services.map((s) => `- ${s.slug} (${s.title}): ${s.body}`).join("\n");
 
 export async function POST(request: Request) {
   let description: unknown;

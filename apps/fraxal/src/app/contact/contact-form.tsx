@@ -4,7 +4,7 @@ import { cn } from "@repo/ui/lib/cn";
 import { buttonVariants } from "@repo/ui/primitives/button";
 import { useState } from "react";
 
-import { site } from "@/lib/site";
+import { Site } from "@/lib/site";
 
 const TOPICS = [
   { value: "question", label: "A question" },
@@ -42,7 +42,7 @@ export function ContactForm() {
       String(data.get("message") ?? ""),
     ].join("\n");
 
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
+    window.location.href = `mailto:${Site.email}?subject=${encodeURIComponent(
       `${label} — via fraxal.com`,
     )}&body=${encodeURIComponent(body)}`;
   }
@@ -129,8 +129,8 @@ export function ContactForm() {
         </button>
         <p className="text-sm text-ink-subtle">
           Opens your mail app. Prefer to write directly?{" "}
-          <a href={`mailto:${site.email}`} className="text-accent hover:underline">
-            {site.email}
+          <a href={`mailto:${Site.email}`} className="text-accent hover:underline">
+            {Site.email}
           </a>
         </p>
       </div>

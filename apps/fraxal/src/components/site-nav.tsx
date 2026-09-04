@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 import { FraxalMark } from "@/components/fraxal-mark";
 import { Logo } from "@/components/logo";
-import { site } from "@/lib/site";
+import { Site } from "@/lib/site";
 
 export function SiteNav() {
   const pathname = usePathname();
@@ -43,7 +43,7 @@ export function SiteNav() {
             bar; smaller type with tighter gaps keeps it a navigation bar rather
             than a wall, and leaves room to add one more item later. */}
         <ul className="hidden items-center gap-6 lg:flex xl:gap-7">
-          {site.nav.map((item) => (
+          {Site.nav.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
@@ -86,7 +86,7 @@ export function SiteNav() {
 
       {open ? (
         <ul id="mobile-nav" className="border-t border-line px-6 pb-5 lg:hidden">
-          {site.nav.map((item) => (
+          {Site.nav.map((item) => (
             <li key={item.href} className="border-b border-line last:border-b-0">
               <Link
                 href={item.href}

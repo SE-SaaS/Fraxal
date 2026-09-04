@@ -4,7 +4,7 @@ import { Orbitron, Rajdhani, Russo_One } from "next/font/google";
 import { ScrollJump } from "@/components/scroll-jump";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
-import { site } from "@/lib/site";
+import { Site } from "@/lib/site";
 
 import "./globals.css";
 
@@ -32,18 +32,18 @@ const wordmark = Russo_One({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(Site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s · ${site.name}`,
+    default: `${Site.name} — ${Site.tagline}`,
+    template: `%s · ${Site.name}`,
   },
-  description: site.description,
+  description: Site.description,
   openGraph: {
     type: "website",
-    siteName: site.name,
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-    url: site.url,
+    siteName: Site.name,
+    title: `${Site.name} — ${Site.tagline}`,
+    description: Site.description,
+    url: Site.url,
   },
   twitter: { card: "summary_large_image" },
 };

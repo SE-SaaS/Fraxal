@@ -3,7 +3,7 @@
  * `NEXT_PUBLIC_SITE_URL` is set per-environment on Vercel; the localhost
  * fallback keeps `metadataBase` valid during local dev and CI builds.
  */
-export const site = {
+export const Site = {
   name: "Fraxal",
   tagline: "Create · Code · Conquer",
   /**
@@ -22,7 +22,6 @@ export const site = {
   nav: [
     { href: "/#services", label: "Services" },
     { href: "/assets", label: "Assets" },
-    { href: "/who-we-are", label: "Who We Are" },
     { href: "/reviews", label: "Reviews" },
     { href: "/contact", label: "Contact" },
   ],
@@ -32,7 +31,7 @@ export const site = {
  * Your list, in your order. Titles are tightened for the grid; the one-line
  * descriptions are mine and are meant to be rewritten in your voice.
  */
-export const services = [
+export const Services = [
   {
     slug: "ai-automation",
     title: "AI Automation",
@@ -87,7 +86,7 @@ export const services = [
  * list may be an estimate, a projection, or a client count you cannot name —
  * the whole point of the section is that it survives being checked.
  */
-export const proof = [
+export const Proof = [
   { label: "Competition", value: "1st", detail: "IEEE Jordan AI Modeling 2.0" },
   { label: "Engineers", value: "4", detail: "ML, vision, systems, art" },
   { label: "Public projects", value: "6", detail: "on GitHub, readable" },
@@ -101,7 +100,7 @@ export const proof = [
  * The grouping argues something on its own: model, then the system around it,
  * then the product it ships inside.
  */
-export const pillars = [
+export const Pillars = [
   {
     title: "Intelligence",
     blurb: "Getting a model to do something useful with your data.",
@@ -126,7 +125,7 @@ export const pillars = [
  * rewrite them to match how you genuinely run a project. If they do not match,
  * delete the array and the section stops rendering.
  */
-export const processSteps = [
+export const ProcessSteps = [
   { title: "Scope", body: "We tell you what it takes, before any money moves." },
   { title: "Prototype", body: "The riskiest part first, so it fails cheap if it is going to." },
   { title: "Build", body: "Shipped in slices you can see running, not one delivery at the end." },
@@ -134,7 +133,7 @@ export const processSteps = [
 ] as const;
 
 /** Order here is the order the storefront renders its sections in. */
-export const assetCategories = [
+export const AssetCategories = [
   {
     id: "ai",
     title: "AI & Data",
@@ -152,7 +151,7 @@ export const assetCategories = [
   },
 ] as const;
 
-export type AssetCategory = (typeof assetCategories)[number]["id"];
+export type AssetCategory = (typeof AssetCategories)[number]["id"];
 
 export type Asset = {
   slug: string;
@@ -172,7 +171,7 @@ export type Asset = {
  * before this site is public; shipping invented products with prices on a live
  * storefront is the kind of thing that gets a business in trouble.
  */
-export const assets: Asset[] = [
+export const Assets: Asset[] = [
   {
     slug: "rag-system",
     name: "RAG System",
@@ -264,7 +263,7 @@ export type Project = {
   note?: string;
   /** Set on personal work so it is never presented as company output. */
   by?: string;
-  /** Shown on the home page. Keep this to three — the rest live on /who-we-are. */
+  /** Shown on the home page. Keep this to three; the rest are on GitHub. */
   featured?: boolean;
 };
 
@@ -273,7 +272,7 @@ export type Project = {
  * condensed. PUBLIC REPOSITORIES ONLY — the org's private repos are excluded on
  * purpose and must stay that way.
  */
-export const projects: Project[] = [
+export const Projects: Project[] = [
   {
     name: "Health-Navigator",
     blurb:
@@ -327,7 +326,7 @@ export const projects: Project[] = [
  * list and rendered under its own heading so nothing here reads as something
  * the company was paid to build. Descriptions are the repos' own.
  */
-export const personalProjects: Project[] = [
+export const PersonalProjects: Project[] = [
   {
     name: "LLaMA 3 From Scratch",
     blurb:
@@ -370,7 +369,7 @@ export type Person = {
  *
  * Aws's LinkedIn was pulled from his GitHub profile README, as asked.
  */
-export const team: Person[] = [
+export const Team: Person[] = [
   {
     name: "Lana Alostath",
     role: "Art / AI Engineer",
@@ -413,4 +412,4 @@ export type Review = {
  * it is a fake. The page renders an honest empty state until you supply real
  * ones, with permission from the clients quoted.
  */
-export const reviews: Review[] = [];
+export const Reviews: Review[] = [];
