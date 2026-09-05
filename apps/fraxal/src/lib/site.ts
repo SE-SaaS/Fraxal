@@ -333,12 +333,18 @@ export const Projects: Project[] = [
     note: "Best ensemble 0.9174 AUROC on test500",
   },
   {
-    // The repo at Algorithems/GravitySort is private, so no link — the URL
-    // would 404 for every visitor. Language read from the repo itself.
-    // TODO: one line on what it does, in your words.
+    // Still no link: Algorithems/GravitySort is private, so the URL would 404
+    // for every visitor. Make the repo public and add `href` to link it.
+    //
+    // The headline is deliberately "4.6x on low-cardinality, parity on
+    // uniform" rather than a bare 4.6x. The project's own README is candid
+    // that gaussian is a loss, and a claim that survives someone checking it
+    // is worth more here than a bigger one that does not.
     name: "GravitySort",
-    blurb: "GPU sorting work in CUDA. Repository is private.",
-    stack: ["CUDA", "Algorithms"],
+    blurb:
+      "A distribution sort for int32 keys, CPU and GPU. A gateway samples the input and routes it to a pipeline chosen for its distribution — counting and filling when values repeat, exiting after one pass when data already arrives ordered — so each route skips the work it does not need.",
+    stack: ["CUDA", "A100", "Research"],
+    note: "4.6x cub::DeviceRadixSort on low-cardinality data, parity on uniform · N=10⁹, A100-80GB",
     private: true,
   },
 ];
