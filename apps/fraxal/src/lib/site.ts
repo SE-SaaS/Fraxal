@@ -396,6 +396,13 @@ export type Person = {
   linkedin?: string;
   /** Published research. Worth showing on an AI company's site when it exists. */
   scholar?: string;
+  /**
+   * The person's colour, sampled along the same crimson-to-blue ramp the hero
+   * canvas draws with, so the team reads as part of the same system. Lightened
+   * from the raw brand accents — #4a5fad is too dark to set 1rem text on
+   * near-black at a readable contrast.
+   */
+  accent?: string;
 };
 
 /**
@@ -407,10 +414,12 @@ export type Person = {
 export const Team: Person[] = [
   {
     name: "Lana Alostath",
+    accent: "#ff5c78",
     role: "Art / AI Engineer",
   },
   {
     name: "Aws Hanaqtah",
+    accent: "#c47ab8",
     role: "System Engineer",
     github: "https://github.com/awshanaqtah",
     linkedin: "https://www.linkedin.com/in/aws-hanaqtah-53b9a731a",
@@ -419,12 +428,14 @@ export const Team: Person[] = [
   },
   {
     name: "Ayham al Suwi",
+    accent: "#8f8ce0",
     role: "ML Engineering",
     github: "https://github.com/AyhamAlsuwi",
     linkedin: "https://www.linkedin.com/in/ayhamalsuwi",
   },
   {
     name: "Mamoun Yosef",
+    accent: "#6f8ae8",
     role: "AI Engineer — Computer Vision",
     github: "https://github.com/mamounyosef",
     linkedin: "https://www.linkedin.com/in/mamoun-yosef",

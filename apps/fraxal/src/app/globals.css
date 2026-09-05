@@ -109,18 +109,13 @@
   }
 }
 
-/* Lifts light text off the near-black ground — the same trick the logo uses,
-   dialled well down so it reads as presence rather than as neon. */
+/*
+ * Lifts light text off the near-black ground. Falls back to the brand accent,
+ * so it works anywhere; the team cards set --glow per person to individuate
+ * them without breaking out of the palette.
+ */
 @utility text-glow {
   text-shadow:
-    0 0 14px rgba(232, 41, 74, 0.3),
-    0 0 34px rgba(123, 107, 181, 0.18);
-}
-
-@utility text-gradient {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+    0 0 14px color-mix(in srgb, var(--glow, var(--color-accent)) 42%, transparent),
+    0 0 36px color-mix(in srgb, var(--glow, var(--color-accent-2)) 24%, transparent);
 }

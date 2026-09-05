@@ -2,6 +2,7 @@ import { cn } from "@repo/ui/lib/cn";
 import { buttonVariants } from "@repo/ui/primitives/button";
 import { Container } from "@repo/ui/primitives/container";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 import { Logo } from "@/components/logo";
 import { NeuralField } from "@/components/neural-field";
@@ -281,7 +282,16 @@ export default function HomePage() {
                     aria-hidden="true"
                     className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                   />
-                  <h3 className="text-glow font-display text-[1rem] font-bold tracking-[0.05em] text-ink">
+                  {/* --glow feeds the text-glow utility; colour and halo come
+                      from the same value so each card reads as one hue. */}
+                  <h3
+                    className="text-glow font-display text-[1rem] font-bold tracking-[0.05em] text-ink"
+                    style={
+                      person.accent
+                        ? ({ color: person.accent, "--glow": person.accent } as CSSProperties)
+                        : undefined
+                    }
+                  >
                     {person.name}
                   </h3>
                   <p className="mt-2 text-[0.86rem] tracking-[0.04em] text-ink-muted">
