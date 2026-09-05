@@ -5,7 +5,16 @@ import Link from "next/link";
 
 import { Logo } from "@/components/logo";
 import { NeuralField } from "@/components/neural-field";
-import { Pillars, ProcessSteps, Projects, Proof, Services, Site, Team } from "@/lib/site";
+import {
+  FeaturedOrder,
+  Pillars,
+  ProcessSteps,
+  Projects,
+  Proof,
+  Services,
+  Site,
+  Team,
+} from "@/lib/site";
 
 /** The reference button treatment: gradient fill, tracked-out caps, hover lift. */
 const CTA_BASE =
@@ -33,11 +42,14 @@ function SectionHead({ eyebrow, title, lede }: { eyebrow: string; title: string;
 const titleFor = (slug: string) => Services.find((s) => s.slug === slug)?.title ?? slug;
 
 export default function HomePage() {
-  // Featured first, then the rest. No filtering: /who-we-are is gone, so
-  // anything dropped here is invisible on the whole site.
-  const ordered = [...Projects].sort(
-    (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)),
-  );
+  // Ordered by FeaturedOrder, then everything else in declaration order.
+  // No filtering: /who-we-are is gone, so anything dropped here would be
+  // invisible on the whole site.
+  const rank = (name: string) => {
+    const i = FeaturedOrder.indexOf(name);
+    return i === -1 ? FeaturedOrder.length : i;
+  };
+  const ordered = [...Projects].sort((a, b) => rank(a.name) - rank(b.name));
 
   return (
     <main id="top">

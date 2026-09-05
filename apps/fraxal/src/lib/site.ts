@@ -266,8 +266,6 @@ export type Project = {
   private?: boolean;
   /** Set on personal work so it is never presented as company output. */
   by?: string;
-  /** Shown on the home page. Keep this to three; the rest are on GitHub. */
-  featured?: boolean;
 };
 
 /**
@@ -282,7 +280,6 @@ export const Projects: Project[] = [
       "An agentic medical assistant that reasons over patient data through multi-agent orchestration, combining pre-trained ML models with relational and vector databases.",
     stack: ["Multi-agent", "Vector DB", "Jupyter"],
     href: "https://github.com/SE-SaaS/Health-Navigator",
-    featured: true,
   },
   {
     name: "Energy Degradation Prediction",
@@ -291,7 +288,6 @@ export const Projects: Project[] = [
     stack: ["TabPFN", "Nori-30M", "TabFM"],
     href: "https://github.com/SE-SaaS/energy-degradation-prediction",
     note: "1st place — IEEE Jordan AI Modeling Hackathon 2.0 · RMSLE 0.19877",
-    featured: true,
   },
   {
     name: "Video Captioning",
@@ -299,7 +295,6 @@ export const Projects: Project[] = [
       "Samples frames with ffmpeg and sends them to vision models for captions in four voices, then runs an ensemble with a judge model picking the best result.",
     stack: ["VLM ensemble", "ffmpeg", "Python"],
     href: "https://github.com/SE-SaaS/video-captioning",
-    featured: true,
   },
   {
     name: "Team-Finder",
@@ -323,14 +318,40 @@ export const Projects: Project[] = [
     note: "In development",
   },
   {
-    // TODO: one line on what GravitySort actually does. Deliberately thin
-    // because I do not know, and guessing at your own work is worse than
-    // saying little. Every other blurb here is the repo's own description.
+    name: "Sign Language Bridge",
+    blurb:
+      "Fine-tuning Qwen3-VL-2B-Instruct for continuous ASL to English translation, with multi-tier LoRA, staged OpenASL and How2Sign training, and a MediaPipe preprocessing pipeline.",
+    stack: ["Qwen3-VL", "LoRA", "MediaPipe"],
+    href: "https://github.com/mamounyosef/sign-language-bridge",
+  },
+  {
+    name: "Chest X-Ray Bench",
+    blurb:
+      "A controlled comparison of 43 chest X-ray models on CheXpert, separating the design choices that actually move scores from the ones that are just noise.",
+    stack: ["CheXpert", "ConvNeXt", "Medical imaging"],
+    href: "https://github.com/mamounyosef/chest-xray-bench",
+    note: "Best ensemble 0.9174 AUROC on test500",
+  },
+  {
+    // The repo at Algorithems/GravitySort is private, so no link — the URL
+    // would 404 for every visitor. Language read from the repo itself.
+    // TODO: one line on what it does, in your words.
     name: "GravitySort",
-    blurb: "Sorting algorithm work, kept private.",
-    stack: ["Algorithms"],
+    blurb: "GPU sorting work in CUDA. Repository is private.",
+    stack: ["CUDA", "Algorithms"],
     private: true,
   },
+];
+
+/**
+ * Home page order, by exact project name. Anything not listed follows in the
+ * order it appears in `Projects`. Reordering the site is editing this line.
+ */
+export const FeaturedOrder: string[] = [
+  "Health-Navigator",
+  "Team-Finder",
+  "Energy Degradation Prediction",
+  "ChaosX Engine",
 ];
 
 /**
