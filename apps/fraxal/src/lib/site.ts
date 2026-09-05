@@ -142,7 +142,8 @@ export const AssetCategories = [
   {
     id: "tools",
     title: "Developer Tools",
-    blurb: "Small things that remove a recurring cost — a hook, a CLI, a check that runs itself.",
+    blurb:
+      "Libraries and tooling that remove a recurring cost — a primitive, a hook, a CLI, a check that runs itself.",
   },
   {
     id: "game",
@@ -166,10 +167,12 @@ export type Asset = {
 };
 
 /**
- * EXAMPLE DATA — these are not real products. They exist so the page layout is
- * visible and so the shape of a real listing is settled. Replace wholesale
- * before this site is public; shipping invented products with prices on a live
- * storefront is the kind of thing that gets a business in trouble.
+ * MOSTLY EXAMPLE DATA. GravitySort is real; everything else here is a
+ * placeholder that exists so the layout is visible and the shape of a listing
+ * is settled. Replace the rest before this is promoted anywhere — shipping
+ * invented products with prices on a live storefront gets a business in
+ * trouble, and one real entry alongside eight invented ones is worse than
+ * none, because it makes the real one look invented too.
  */
 export const Assets: Asset[] = [
   {
@@ -251,6 +254,19 @@ export const Assets: Asset[] = [
     worksWith: ["Unreal Engine", "Unity", "FBX / glTF"],
     price: "—",
     status: "coming-soon",
+  },
+  {
+    // Real, unlike its neighbours. Licensed rather than open-sourced: the
+    // implementation is the product, so the repository stays private and the
+    // research paper — not the source — is what makes the numbers checkable.
+    slug: "gravitysort",
+    name: "GravitySort",
+    blurb:
+      "A distribution sort for int32 keys that routes input to a pipeline chosen from its own distribution. Roughly 4.6x cub::DeviceRadixSort where values repeat, parity on uniform. Available under commercial licence.",
+    category: "tools",
+    worksWith: ["CUDA", "NVIDIA GPUs", "CPU fallback"],
+    price: "On enquiry",
+    status: "available",
   },
 ];
 
