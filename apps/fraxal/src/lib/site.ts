@@ -167,12 +167,14 @@ export type Asset = {
 };
 
 /**
- * MOSTLY EXAMPLE DATA. GravitySort is real; everything else here is a
- * placeholder that exists so the layout is visible and the shape of a listing
- * is settled. Replace the rest before this is promoted anywhere — shipping
- * invented products with prices on a live storefront gets a business in
- * trouble, and one real entry alongside eight invented ones is worse than
- * none, because it makes the real one look invented too.
+ * Real products, with two caveats worth keeping visible:
+ *
+ *   - 3D Modular System is not finished, so it stays "coming-soon" with no
+ *     price. Listing it as available would be the one lie on this page.
+ *   - Weapon System's description is mine, not yours. Replace it.
+ *
+ * Anything added here must be something that exists. One invented entry beside
+ * real ones makes the real ones look invented too.
  */
 export const Assets: Asset[] = [
   {
@@ -182,48 +184,21 @@ export const Assets: Asset[] = [
       "Ingestion, chunking, embedding and reranking wired end to end — with an evaluation set, so you can prove retrieval quality instead of hoping for it.",
     category: "ai",
     worksWith: ["Python", "TypeScript", "Any vector DB"],
-    price: "—",
-    status: "coming-soon",
+    price: "On enquiry",
+    status: "available",
   },
   {
-    slug: "ai-pipeline",
-    name: "AI Pipeline",
+    slug: "gravitysort",
+    // Real, and the only one here that is licensed rather than delivered as
+    // source. The implementation is the product, so the repository stays
+    // private and the research paper is what makes the numbers checkable.
+    name: "GravitySort",
     blurb:
-      "Data validation, versioned runs and deployment around your training and inference code, so a notebook becomes something you can operate.",
-    category: "ai",
-    worksWith: ["Python", "Docker", "CI"],
-    price: "—",
-    status: "coming-soon",
-  },
-  {
-    slug: "domain-models",
-    name: "Domain Models",
-    blurb:
-      "Models fine-tuned for one task and shipped with the evaluation that proves it — you see where they hold and where they fail before you deploy.",
-    category: "ai",
-    worksWith: ["PyTorch", "ONNX", "Hugging Face"],
-    price: "—",
-    status: "coming-soon",
-  },
-  {
-    slug: "cli-toolkit",
-    name: "CLI Toolkit",
-    blurb:
-      "A command-line scaffold with argument parsing, config resolution and structured output already handled, ready to wrap whatever you need automated.",
+      "A distribution sort for int32 keys that routes input to a pipeline chosen from its own distribution. Roughly 4.6x cub::DeviceRadixSort where values repeat, parity on uniform. Available under commercial licence.",
     category: "tools",
-    worksWith: ["Node", "Python"],
-    price: "—",
-    status: "coming-soon",
-  },
-  {
-    slug: "git-hooks-ci",
-    name: "Hooks & CI Checks",
-    blurb:
-      "Pre-commit and pre-push hooks with the CI workflow to match, so the same rules run on your machine and on the server — and nothing lands broken.",
-    category: "tools",
-    worksWith: ["Git", "GitHub Actions"],
-    price: "—",
-    status: "coming-soon",
+    worksWith: ["CUDA", "NVIDIA GPUs", "CPU fallback"],
+    price: "On enquiry",
+    status: "available",
   },
   {
     slug: "movement-system",
@@ -232,8 +207,8 @@ export const Assets: Asset[] = [
       "Character controller with grounded and airborne states, slope handling and step-up, tuned through exposed values rather than buried constants.",
     category: "game",
     worksWith: ["Unreal Engine", "Unity", "Godot"],
-    price: "—",
-    status: "coming-soon",
+    price: "On enquiry",
+    status: "available",
   },
   {
     slug: "inventory-system",
@@ -242,8 +217,32 @@ export const Assets: Asset[] = [
       "Slots, stacking, equipment and persistence, with the data model kept separate from the UI so you can reskin it without rewriting it.",
     category: "game",
     worksWith: ["Unreal Engine", "Unity"],
-    price: "—",
-    status: "coming-soon",
+    price: "On enquiry",
+    status: "available",
+  },
+  {
+    slug: "event-system",
+    // Grounded in how ChaosX actually dispatches events. Rewrite if the
+    // packaged version differs from the engine's.
+    name: "Event System",
+    blurb:
+      "Input, window and application events routed through a single dispatcher, so gameplay code never reaches into the platform layer.",
+    category: "game",
+    worksWith: ["C++", "Unreal Engine", "Unity"],
+    price: "On enquiry",
+    status: "available",
+  },
+  {
+    slug: "weapon-system",
+    // TODO: the specifics here are mine — you said you have it, not what it
+    // does. One line from you replaces this.
+    name: "Weapon System",
+    blurb:
+      "Weapon behaviour with the configuration held as data, so adding a weapon is a definition rather than a new code path.",
+    category: "game",
+    worksWith: ["Unreal Engine", "Unity"],
+    price: "On enquiry",
+    status: "available",
   },
   {
     slug: "modular-3d-system",
@@ -254,19 +253,6 @@ export const Assets: Asset[] = [
     worksWith: ["Unreal Engine", "Unity", "FBX / glTF"],
     price: "—",
     status: "coming-soon",
-  },
-  {
-    // Real, unlike its neighbours. Licensed rather than open-sourced: the
-    // implementation is the product, so the repository stays private and the
-    // research paper — not the source — is what makes the numbers checkable.
-    slug: "gravitysort",
-    name: "GravitySort",
-    blurb:
-      "A distribution sort for int32 keys that routes input to a pipeline chosen from its own distribution. Roughly 4.6x cub::DeviceRadixSort where values repeat, parity on uniform. Available under commercial licence.",
-    category: "tools",
-    worksWith: ["CUDA", "NVIDIA GPUs", "CPU fallback"],
-    price: "On enquiry",
-    status: "available",
   },
 ];
 
@@ -370,10 +356,18 @@ export const Projects: Project[] = [
  * order it appears in `Projects`. Reordering the site is editing this line.
  */
 export const FeaturedOrder: string[] = [
+  // Your three, in your order.
+  "ChaosX Engine",
+  "GravitySort",
+  "Energy Degradation Prediction",
+  // Then by how well each one survives being checked: a hard metric first,
+  // then depth of description, then whether it describes itself at all.
+  "Chest X-Ray Bench",
+  "Sign Language Bridge",
   "Health-Navigator",
   "Team-Finder",
-  "Energy Degradation Prediction",
-  "ChaosX Engine",
+  "Video Captioning",
+  "RSNA Knee Abnormality Detection",
 ];
 
 /**
