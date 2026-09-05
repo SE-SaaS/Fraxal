@@ -80,20 +80,6 @@ export const Services = [
 ] as const;
 
 /**
- * The proof strip, directly under the hero.
- *
- * Every figure here is verifiable from the repos or GitHub. Nothing on this
- * list may be an estimate, a projection, or a client count you cannot name —
- * the whole point of the section is that it survives being checked.
- */
-export const Proof = [
-  { label: "Competition", value: "1st", detail: "IEEE Jordan AI Modeling 2.0" },
-  { label: "Engineers", value: "4", detail: "ML, vision, systems, art" },
-  { label: "Domains", value: "5", detail: "medical, energy, vision, engines, web" },
-  { label: "Best RMSLE", value: "0.198", detail: "under distribution shift" },
-] as const;
-
-/**
  * The nine services in three groups. Members are service slugs, so the titles
  * stay in sync with `services` and cannot drift.
  *

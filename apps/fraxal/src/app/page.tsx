@@ -5,16 +5,7 @@ import Link from "next/link";
 
 import { Logo } from "@/components/logo";
 import { NeuralField } from "@/components/neural-field";
-import {
-  FeaturedOrder,
-  Pillars,
-  ProcessSteps,
-  Projects,
-  Proof,
-  Services,
-  Site,
-  Team,
-} from "@/lib/site";
+import { FeaturedOrder, Pillars, ProcessSteps, Projects, Services, Site, Team } from "@/lib/site";
 
 /** The reference button treatment: gradient fill, tracked-out caps, hover lift. */
 const CTA_BASE =
@@ -104,27 +95,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 02 · Proof strip ───────────────────────────────────────────────
-          Credibility before any ask. Every figure is checkable. */}
-      <section className="border-b border-line">
-        <Container width="wide" className="px-0 md:px-0">
-          <dl className="grid grid-cols-2 gap-px bg-line lg:grid-cols-4">
-            {Proof.map((item) => (
-              <div key={item.label} className="bg-[rgba(232,41,74,0.02)] px-6 py-8 md:px-8">
-                <dt className="font-mono text-[0.6rem] tracking-[0.14em] text-ink-subtle uppercase">
-                  {item.label}
-                </dt>
-                <dd className="font-display mt-2 text-[1.6rem] leading-none font-bold text-ink tabular-nums">
-                  {item.value}
-                </dd>
-                <dd className="mt-2 text-[0.85rem] text-ink-muted">{item.detail}</dd>
-              </div>
-            ))}
-          </dl>
-        </Container>
-      </section>
-
-      {/* ── 03 · Three pillars ─────────────────────────────────────────────
+      {/* ── 02 · Three pillars ─────────────────────────────────────────────
           The same nine services, grouped so a reader takes in three ideas. */}
       <section id="services" className="scroll-mt-24 py-20">
         <Container width="wide">
@@ -161,7 +132,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── 04 · Selected work ─────────────────────────────────────────────
+      {/* ── 03 · Selected work ─────────────────────────────────────────────
           The claim, turned into evidence. Three only — the rest live on
           the GitHub org, so the home page stays short. */}
       <section
@@ -253,7 +224,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── 05 · How we work ───────────────────────────────────────────────
+      {/* ── 04 · How we work ───────────────────────────────────────────────
           Numbering is honest here: it is a real sequence, not decoration.
           Renders nothing if the steps array is emptied. */}
       {ProcessSteps.length > 0 ? (
@@ -282,7 +253,7 @@ export default function HomePage() {
         </section>
       ) : null}
 
-      {/* ── 06 · The team ──────────────────────────────────────────────────
+      {/* ── 05 · The team ──────────────────────────────────────────────────
           Four named engineers with public profiles is a stronger signal than
           any amount of copy. */}
       <section className="border-t border-line py-20">
@@ -336,7 +307,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── 07 · Closing ask ───────────────────────────────────────────────
+      {/* ── 06 · Closing ask ───────────────────────────────────────────────
           Unchanged — it just lands better here, after the evidence. */}
       <section id="contact" className="scroll-mt-24 pb-24">
         <Container width="wide">
