@@ -416,7 +416,7 @@ export const Team: Person[] = [
   {
     name: "Lana Alostath",
     accent: "#eaa6dd", // lavender pink
-    role: "Art / AI Engineer",
+    role: "Art / AI Engineer — Visual Design, Computer Vision",
   },
   {
     name: "Aws Hanaqtah",
