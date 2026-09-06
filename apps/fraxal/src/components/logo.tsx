@@ -1,6 +1,38 @@
 import { cn } from "@repo/ui/lib/cn";
 import type { ReactNode } from "react";
 
+/**
+ * The lambda, drawn rather than typed.
+ *
+ * Russo One ships latin, latin-ext and cyrillic only — no Greek block. So
+ * U+039B has never rendered in the wordmark font: it fell through to whatever
+ * the system offered, and on a machine with no Greek-capable fallback it
+ * rendered as a tofu box. Drawing it guarantees the mark looks the same
+ * everywhere and always matches the wordmark's weight and colour.
+ *
+ * Sized in `em` so it scales with whatever font-size the lockup is given.
+ */
+function GlyphLambda({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 74 100"
+      aria-hidden="true"
+      focusable="false"
+      className={cn("h-[0.72em] w-auto shrink-0", className)}
+      style={{ verticalAlign: "baseline" }}
+    >
+      <path
+        d="M8 96 L37 10 L66 96"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="19"
+        strokeLinecap="butt"
+        strokeLinejoin="miter"
+      />
+    </svg>
+  );
+}
+
 export type LogoProps = {
   className?: string;
   /** Hero treatment: the whole lockup pulses. Off for nav and footer. */
@@ -40,11 +72,11 @@ export function Logo({ className, pulse = false, mark }: LogoProps) {
         </span>
       ) : null}
       <span aria-hidden="true">FR</span>
-      <span aria-hidden="true">Λ</span>
+      <GlyphLambda />
       <span aria-hidden="true" className="animate-mark-glow text-accent">
         X
       </span>
-      <span aria-hidden="true">Λ</span>
+      <GlyphLambda />
       <span aria-hidden="true">L</span>
     </span>
   );

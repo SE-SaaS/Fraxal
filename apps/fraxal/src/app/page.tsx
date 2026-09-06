@@ -264,78 +264,46 @@ export default function HomePage() {
             lede="Amman, Jordan. Every profile below is public — check the work yourself."
           />
 
-          {/* Laid out as connected nodes: a hairline runs behind the row and
-              each card sits on it with a node marker. The company is four
-              connected people and the mark is a node graph — so the section
-              renders as the network rather than decorating itself with one.
-              The rail only draws at lg, where all four share a single row. */}
-          <div className="relative mt-12">
-            <span
-              aria-hidden="true"
-              className="absolute inset-x-0 top-[1.15rem] hidden h-px bg-gradient-to-r from-transparent via-line-strong to-transparent lg:block"
-            />
+          <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {Team.map((person) => {
+              const links = [
+                { label: "GitHub", href: person.github },
+                { label: "LinkedIn", href: person.linkedin },
+                { label: "Scholar", href: person.scholar },
+              ].filter((link): link is { label: string; href: string } => Boolean(link.href));
 
-            <ul className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {Team.map((person) => {
-                const links = [
-                  { label: "Email", href: person.email ? `mailto:${person.email}` : undefined },
-                  { label: "GitHub", href: person.github },
-                  { label: "LinkedIn", href: person.linkedin },
-                  { label: "Scholar", href: person.scholar },
-                ].filter((link): link is { label: string; href: string } => Boolean(link.href));
-
-                return (
-                  <li
-                    key={person.name}
-                    className="group relative border border-line bg-[rgba(232,41,74,0.02)] p-7 pt-9 transition-colors duration-300 hover:border-line-strong hover:bg-[rgba(232,41,74,0.05)]"
-                  >
-                    {/* The node this card is in the network. */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute top-[-0.3rem] left-7 h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_10px_rgba(232,41,74,0.7)] transition-shadow duration-300 group-hover:shadow-[0_0_18px_rgba(232,41,74,0.95)]"
-                    />
-
-                    <h3 className="text-glow font-display text-[1rem] font-bold tracking-[0.05em] text-ink">
-                      {person.name}
-                    </h3>
-                    <p className="mt-2 text-[0.86rem] tracking-[0.04em] text-ink-muted">
-                      {person.role}
-                    </p>
-
-                    {/* What they own. Same chip pattern as the project and asset
-                        cards, so the page reads as one system — and every card
-                        carries them, so nobody's is thinner. */}
-                    <ul className="mt-5 flex flex-wrap gap-1.5">
-                      {person.focus.map((item) => (
-                        <li
-                          key={item}
-                          className="border border-line px-2 py-0.5 font-mono text-[0.68rem] text-ink-muted"
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Demoted to a quiet footer: a missing profile reads as
-                        absence rather than as a gap in the card. */}
-                    <div className="mt-6 flex min-h-[1rem] flex-wrap gap-x-4 gap-y-2 border-t border-line pt-4">
-                      {links.map((link) => (
-                        <a
-                          key={link.label}
-                          href={link.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="font-mono text-[0.65rem] tracking-[0.12em] text-ink-subtle uppercase transition-colors duration-200 hover:text-accent"
-                        >
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+              return (
+                <li
+                  key={person.name}
+                  className="group relative border border-line bg-[rgba(232,41,74,0.02)] p-7 transition-colors duration-300 hover:border-line-strong hover:bg-[rgba(232,41,74,0.05)]"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  />
+                  <h3 className="text-glow font-display text-[1rem] font-bold tracking-[0.05em] text-ink">
+                    {person.name}
+                  </h3>
+                  <p className="mt-2 text-[0.86rem] tracking-[0.04em] text-ink-muted">
+                    {person.role}
+                  </p>
+                  <div className="mt-6 flex min-h-[1.25rem] flex-wrap gap-x-5 gap-y-2 border-t border-line pt-5">
+                    {links.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-mono text-[0.72rem] tracking-[0.1em] text-ink-subtle uppercase transition-colors duration-200 hover:text-accent"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </Container>
       </section>
 
