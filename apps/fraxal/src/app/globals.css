@@ -109,10 +109,15 @@
   }
 }
 
-/* Lifts light text off the near-black ground — the same trick the logo uses,
-   dialled well down so it reads as presence rather than as neon. */
+/*
+ * Lifts light text off the near-black ground — the same trick the logo uses,
+ * dialled well down so it reads as presence rather than neon.
+ *
+ * Falls back to the brand accent, so it works anywhere. The team cards set
+ * --glow per person so each name's halo matches its own colour.
+ */
 @utility text-glow {
   text-shadow:
-    0 0 14px rgba(232, 41, 74, 0.3),
-    0 0 34px rgba(123, 107, 181, 0.18);
+    0 0 14px color-mix(in srgb, var(--glow, var(--color-accent)) 38%, transparent),
+    0 0 34px color-mix(in srgb, var(--glow, var(--color-accent-2)) 20%, transparent);
 }

@@ -396,6 +396,14 @@ export type Person = {
   linkedin?: string;
   /** Published research. Worth showing on an AI company's site when it exists. */
   scholar?: string;
+  /**
+   * The person's colour — their name and its halo both take it.
+   *
+   * Each is the hue you asked for, lifted to clear roughly 5:1 on the near-black
+   * ground. A dense violet or a true brand red set at 1rem sits nearer 4:1,
+   * which is legible on a monitor and not on a phone in daylight.
+   */
+  accent?: string;
 };
 
 /**
@@ -407,10 +415,12 @@ export type Person = {
 export const Team: Person[] = [
   {
     name: "Lana Alostath",
+    accent: "#eaa6dd", // lavender pink
     role: "Art / AI Engineer",
   },
   {
     name: "Aws Hanaqtah",
+    accent: "#ff3d57", // red
     role: "System Engineer",
     github: "https://github.com/awshanaqtah",
     linkedin: "https://www.linkedin.com/in/aws-hanaqtah-53b9a731a",
@@ -419,12 +429,14 @@ export const Team: Person[] = [
   },
   {
     name: "Ayham al Suwi",
+    accent: "#9d6dff", // dense violet
     role: "ML Engineering",
     github: "https://github.com/AyhamAlsuwi",
     linkedin: "https://www.linkedin.com/in/ayhamalsuwi",
   },
   {
     name: "Mamoun Yosef",
+    accent: "#3fd98b", // green
     role: "AI Engineer — Computer Vision",
     github: "https://github.com/mamounyosef",
     linkedin: "https://www.linkedin.com/in/mamoun-yosef",
