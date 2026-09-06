@@ -421,7 +421,7 @@ export const Team: Person[] = [
   {
     name: "Aws Hanaqtah",
     accent: "#ff3d57", // red
-    role: "System Engineer",
+    role: "System Engineer — Engines, CUDA, Transformers",
     github: "https://github.com/awshanaqtah",
     linkedin: "https://www.linkedin.com/in/aws-hanaqtah-53b9a731a",
     // Add `scholar` here once the algorithm paper is out. Your GitHub lists no
@@ -430,14 +430,14 @@ export const Team: Person[] = [
   {
     name: "Ayham al Suwi",
     accent: "#9d6dff", // dense violet
-    role: "ML Engineering",
+    role: "ML Engineer — Tabular Models, Feature Engineering",
     github: "https://github.com/AyhamAlsuwi",
     linkedin: "https://www.linkedin.com/in/ayhamalsuwi",
   },
   {
     name: "Mamoun Yosef",
     accent: "#3fd98b", // green
-    role: "AI Engineer — Computer Vision",
+    role: "AI Engineer — Vision Models, Medical Imaging",
     github: "https://github.com/mamounyosef",
     linkedin: "https://www.linkedin.com/in/mamoun-yosef",
     scholar: "https://scholar.google.com/citations?user=4tsrEQcAAAAJ&hl=en",
