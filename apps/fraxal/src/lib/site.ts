@@ -396,6 +396,17 @@ export type Person = {
   linkedin?: string;
   /** Published research. Worth showing on an AI company's site when it exists. */
   scholar?: string;
+  /** Direct contact. Optional — Site.email is the address for everything else. */
+  email?: string;
+  /**
+   * What this person owns, two or three terms.
+   *
+   * Deliberately what they are responsible for, not what they have published.
+   * Crediting people by public repositories would rank the team by GitHub
+   * tenure and leave whoever joined last looking empty — a problem that
+   * recurs with every new hire. Everyone has a discipline from day one.
+   */
+  focus: string[];
 };
 
 /**
@@ -407,10 +418,12 @@ export type Person = {
 export const Team: Person[] = [
   {
     name: "Lana Alostath",
+    focus: ["Visual design", "Assets", "Computer vision"],
     role: "Art / AI Engineer",
   },
   {
     name: "Aws Hanaqtah",
+    focus: ["Engines", "CUDA", "Transformers"],
     role: "System Engineer",
     github: "https://github.com/awshanaqtah",
     linkedin: "https://www.linkedin.com/in/aws-hanaqtah-53b9a731a",
@@ -419,12 +432,15 @@ export const Team: Person[] = [
   },
   {
     name: "Ayham al Suwi",
+    focus: ["Tabular ML", "Feature engineering", "Imbalanced data"],
     role: "ML Engineering",
     github: "https://github.com/AyhamAlsuwi",
     linkedin: "https://www.linkedin.com/in/ayhamalsuwi",
   },
   {
     name: "Mamoun Yosef",
+    email: "mamounhussam1000@gmail.com",
+    focus: ["VLMs", "Medical imaging", "Fine-tuning"],
     role: "AI Engineer — Computer Vision",
     github: "https://github.com/mamounyosef",
     linkedin: "https://www.linkedin.com/in/mamoun-yosef",
