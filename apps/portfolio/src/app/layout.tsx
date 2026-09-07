@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 
-import { site } from "@/lib/site";
+import { Site } from "@/lib/site";
 
 import "./globals.css";
 
@@ -18,18 +18,18 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(Site.url),
   title: {
-    default: `${site.name} — ${site.role}`,
-    template: `%s · ${site.name}`,
+    default: `${Site.name} — ${Site.role}`,
+    template: `%s · ${Site.name}`,
   },
-  description: site.description,
+  description: Site.intro,
   openGraph: {
     type: "website",
-    siteName: site.name,
-    title: `${site.name} — ${site.role}`,
-    description: site.description,
-    url: site.url,
+    siteName: Site.name,
+    title: `${Site.name} — ${Site.role}`,
+    description: Site.intro,
+    url: Site.url,
   },
   twitter: { card: "summary_large_image" },
 };

@@ -2,59 +2,115 @@
  * Positioning lives here, not scattered through JSX — rewriting the pitch
  * should be one file, not a search across components.
  *
- * TODO: `name` is a placeholder until the brand/domain is chosen.
+ * DELIBERATELY NO REFERENCE TO FRAXAL. This site and the company site are kept
+ * apart: no links, no "I build X", no shared work. Everything below is Aws's
+ * own, from his own account. Company output belongs on the company site.
  */
-export const site = {
-  name: "Your Name",
-  role: "Marketing that ships",
-  description:
-    "I run marketing for technical products — positioning, launch, and the pages that convert. I also build the things I market, which is why the handoff never gets lost.",
+export const Site = {
+  name: "Aws Hanaqtah",
+  role: "Systems & AI Engineer",
+  /** The one line that has to land before anyone scrolls. */
+  intro:
+    "I build the layers most people import. Game engines, GPU primitives, and transformer architectures written from first principles — because understanding the thing underneath is what makes the thing on top trustworthy.",
+  location: "Amman, Jordan",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3001",
-  email: "hello@example.com",
+  email: "awshanaqtah12@outlook.com",
+  socials: [
+    { label: "GitHub", href: "https://github.com/awshanaqtah" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/aws-hanaqtah-53b9a731a" },
+    { label: "X", href: "https://x.com/AwsHanaqtahay1" },
+  ],
   nav: [
-    { href: "/work", label: "Work" },
-    { href: "/services", label: "Services" },
-    { href: "/about", label: "About" },
+    { href: "#about", label: "About" },
+    { href: "#skills", label: "Skills" },
+    { href: "#work", label: "Work" },
+    { href: "#contact", label: "Contact" },
   ],
 } as const;
 
-export type Discipline = "marketing" | "engineering" | "hybrid";
+/**
+ * Written in the first person because this is a personal page, not a company
+ * one. Two short paragraphs — anything longer and nobody reads the second.
+ */
+export const About = [
+  "Most of what I build, I build from scratch first. A C++20 game engine with its own application and event layer. LLaMA 3 and GPT-2 reimplemented in PyTorch, component by component, to understand a decoder-only model rather than call one. A GPU sorting primitive benchmarked against NVIDIA's own.",
+  "That is not a preference for reinventing things — it is how I learn what a library is actually doing, and where it stops being the right tool. It also means when something breaks three layers down, I know where to look.",
+] as const;
 
-export type WorkItem = {
-  slug: string;
+export type SkillGroup = {
   title: string;
-  summary: string;
-  discipline: Discipline;
-  year: string;
-  /** Outcome first. A marketing portfolio that leads with deliverables doesn't convert. */
-  metrics: { label: string; value: string }[];
-  href?: string;
+  blurb: string;
+  items: string[];
 };
 
-export const work: WorkItem[] = [
+/** Grouped by what they are for, not by language, so it reads as capability. */
+export const Skills: SkillGroup[] = [
   {
-    slug: "chaosx",
-    title: "ChaosX Engine",
-    summary:
-      "Built and launched a C++20 game engine, then wrote the positioning and site that explains it to developers.",
-    discipline: "hybrid",
-    year: "2026",
-    metrics: [
-      { label: "Built", value: "Engine + site" },
-      { label: "Audience", value: "Developers" },
-    ],
-    href: "https://example.com",
+    title: "Systems",
+    blurb: "The layer where performance actually lives.",
+    items: ["C++20", "CUDA", "Engine architecture", "premake5", "Windows / Linux"],
   },
   {
-    slug: "team-finder",
-    title: "Team-Finder",
-    summary:
-      "Full-stack product for matching people to projects. Shipped the app and the go-to-market around it.",
-    discipline: "hybrid",
-    year: "2025",
-    metrics: [
-      { label: "Stack", value: "Next.js + Supabase" },
-      { label: "Role", value: "End to end" },
-    ],
+    title: "Machine Learning",
+    blurb: "Models built and trained, not just called.",
+    items: ["PyTorch", "Transformers", "LoRA", "YOLO", "ResNet"],
+  },
+  {
+    title: "Product",
+    blurb: "The part a person actually opens.",
+    items: ["TypeScript", "Next.js", "React", "Supabase", "Tauri"],
+  },
+];
+
+export type Project = {
+  name: string;
+  blurb: string;
+  stack: string[];
+  href: string;
+  /** Only ever something verifiable — a placing, a score, a state. */
+  note?: string;
+};
+
+/**
+ * Aws's own public repositories. Descriptions are the repos' own, condensed.
+ * Nothing from any organisation account belongs on this list.
+ */
+export const Projects: Project[] = [
+  {
+    name: "ChaosX Engine",
+    blurb:
+      "A C++20 game engine built from the ground up — custom application and entry-point architecture, an event system, and logging, targeting Windows and Linux.",
+    stack: ["C++20", "premake5", "Cross-platform"],
+    href: "https://github.com/awshanaqtah/ChaosX",
+    note: "In development",
+  },
+  {
+    name: "LLaMA 3 From Scratch",
+    blurb:
+      "A ground-up reimplementation of the LLaMA 3 transformer in PyTorch, built to understand — not just use — every component of a modern decoder-only LLM.",
+    stack: ["PyTorch", "Transformers", "LLM"],
+    href: "https://github.com/awshanaqtah/LLaMA-3-Transformer-From-Scratch-Implementation",
+  },
+  {
+    name: "GPT-2 From Scratch",
+    blurb:
+      "GPT-2 written from first principles, following the same read-the-whole-thing approach as the LLaMA 3 build.",
+    stack: ["PyTorch", "Transformers"],
+    href: "https://github.com/awshanaqtah/Gpt-2-Implmenation-from-Scratch",
+  },
+  {
+    name: "ResNet Face Attributes",
+    blurb:
+      "Two-stage face-attribute pipeline: YOLO separates person from animal, then ResNet-34 models read gender, age and expression from each face.",
+    stack: ["YOLO", "ResNet-34", "UTKFace + RAF-DB"],
+    href: "https://github.com/awshanaqtah/resnet-face-attributes",
+    note: "Trained on a Modal A100",
+  },
+  {
+    name: "Team-Finder",
+    blurb:
+      "AI-powered university team builder — finds teammates, generates project ideas, and assembles balanced teams, shipped for web and desktop.",
+    stack: ["React 19", "Supabase", "Tauri"],
+    href: "https://github.com/awshanaqtah/TeamFinder",
   },
 ];
