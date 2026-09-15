@@ -17,7 +17,7 @@ export const Site = {
   description:
     "Fraxal builds AI systems and the software around them — automation, models, pipelines, and the products they run inside.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  email: "fraxal@outlook.com",
+  email: "fraxalengines@fraxal.dev",
   github: "https://github.com/SE-SaaS",
   nav: [
     { href: "/#services", label: "Services" },
