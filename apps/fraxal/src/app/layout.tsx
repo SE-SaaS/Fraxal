@@ -1,9 +1,11 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata, Viewport } from "next";
 import { Orbitron, Rajdhani, Russo_One } from "next/font/google";
 
 import { ScrollJump } from "@/components/scroll-jump";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
+import { AuthRoutes, ClerkAppearance } from "@/lib/clerk";
 import { Site } from "@/lib/site";
 
 import "./globals.css";
@@ -59,10 +61,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${body.variable} ${display.variable} ${wordmark.variable} scroll-smooth`}
     >
       <body>
-        <SiteNav />
-        {children}
-        <SiteFooter />
-        <ScrollJump />
+        {/* Inside <body>, not around <html>, so it never forces pages dynamic. */}
+        <ClerkProvider
+          appearance={ClerkAppearance}
+          signInUrl={AuthRoutes.signIn}
+          signInFallbackRedirectUrl={AuthRoutes.account}
+          signUpFallbackRedirectUrl={AuthRoutes.account}
+        >
+          <SiteNav />
+          {children}
+          <SiteFooter />
+          <ScrollJump />
+        </ClerkProvider>
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { Show } from "@clerk/nextjs";
 import { cn } from "@repo/ui/lib/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,6 +8,7 @@ import { useEffect, useState } from "react";
 
 import { FraxalMark } from "@/components/fraxal-mark";
 import { Logo } from "@/components/logo";
+import { AuthRoutes } from "@/lib/clerk";
 import { Site } from "@/lib/site";
 
 export function SiteNav() {
@@ -57,6 +59,33 @@ export function SiteNav() {
             </li>
           ))}
           <li>
+            {/* Signed in, it reads Account; otherwise it reads Sign in. */}
+            <Show
+              when="signed-in"
+              fallback={
+                <Link
+                  href={AuthRoutes.signIn}
+                  className={cn(
+                    "text-[0.76rem] font-bold tracking-[0.1em] uppercase transition-colors duration-200",
+                    isActive(AuthRoutes.signIn) ? "text-accent" : "text-ink hover:text-accent",
+                  )}
+                >
+                  Sign in
+                </Link>
+              }
+            >
+              <Link
+                href={AuthRoutes.account}
+                className={cn(
+                  "text-[0.76rem] font-bold tracking-[0.1em] uppercase transition-colors duration-200",
+                  isActive(AuthRoutes.account) ? "text-accent" : "text-ink hover:text-accent",
+                )}
+              >
+                Account
+              </Link>
+            </Show>
+          </li>
+          <li>
             <Link
               href="/start"
               className="rounded-[2px] border border-accent px-4 py-2 text-[0.74rem] font-bold tracking-[0.1em] text-accent uppercase transition-colors duration-200 hover:bg-accent hover:text-accent-ink"
@@ -97,6 +126,28 @@ export function SiteNav() {
               </Link>
             </li>
           ))}
+          <li className="border-b border-line">
+            <Show
+              when="signed-in"
+              fallback={
+                <Link
+                  href={AuthRoutes.signIn}
+                  onClick={() => setOpen(false)}
+                  className="block py-3.5 text-sm font-bold tracking-[0.1em] text-ink-muted uppercase hover:text-accent"
+                >
+                  Sign in
+                </Link>
+              }
+            >
+              <Link
+                href={AuthRoutes.account}
+                onClick={() => setOpen(false)}
+                className="block py-3.5 text-sm font-bold tracking-[0.1em] text-ink-muted uppercase hover:text-accent"
+              >
+                Account
+              </Link>
+            </Show>
+          </li>
           <li className="pt-4">
             <Link
               href="/start"
