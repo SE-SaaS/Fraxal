@@ -25,8 +25,8 @@ same applies to `document`, `window`, `location`, `history`, `name`, `status`,
 
 Two things stay lowercase, deliberately:
 
-- **Wire formats** — JSON keys and API response fields (`summary`, `services`,
-  `clarifying` in `/api/match`). These are a contract with something outside the
+- **Wire formats** — JSON keys and API request/response fields (`description`,
+  `email`, `sent` in `/api/project`). These are a contract with something outside the
   codebase, and mixed casing inside one payload is a bug waiting to happen.
 - **React component props and local variables inside a component**, because
   JSX reads a PascalCase identifier as a component.

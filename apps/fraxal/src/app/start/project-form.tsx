@@ -6,9 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { HoneypotField } from "@/components/honeypot-field";
-import { Services, Site } from "@/lib/site";
-
-type Match = { slug: string; hits: string[] };
+import { Site } from "@/lib/site";
 
 const MIN_CHARS = 20;
 const MAX_CHARS = 4000;
@@ -18,11 +16,11 @@ const LABEL = "block font-mono text-[0.68rem] tracking-[0.14em] text-ink-subtle 
 const FIELD =
   "w-full rounded-[2px] border border-line bg-[rgba(232,41,74,0.02)] px-4 text-ink transition-colors duration-200 placeholder:text-ink-subtle focus-visible:border-accent focus-visible:outline-none";
 
-export function ProjectMatcher() {
+/** Posts to `/api/project`, which emails the brief to the Fraxal inbox as typed. */
+export function ProjectForm() {
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [matches, setMatches] = useState<Match[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const remaining = MIN_CHARS - description.trim().length;
@@ -37,7 +35,7 @@ export function ProjectMatcher() {
     setError(null);
 
     try {
-      const response = await fetch("/api/match", {
+      const response = await fetch("/api/project", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ description, email, website }),
@@ -50,7 +48,6 @@ export function ProjectMatcher() {
         return;
       }
 
-      setMatches(payload.services as Match[]);
       setState("sent");
     } catch {
       setError("Could not reach us. Check your connection and try again.");
@@ -60,7 +57,7 @@ export function ProjectMatcher() {
 
   if (state === "sent") {
     return (
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-8">
         <div className="border border-line-strong bg-[rgba(232,41,74,0.04)] p-6">
           <p className="font-display text-sm font-bold tracking-[0.08em] text-accent uppercase">
             Sent
@@ -71,33 +68,7 @@ export function ProjectMatcher() {
           </p>
         </div>
 
-        <div>
-          <p className="font-mono text-[0.68rem] tracking-[0.16em] text-accent uppercase">
-            Services this points to
-          </p>
-          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
-            {matches.map((match) => {
-              const service = Services.find((s) => s.slug === match.slug);
-              return (
-                <li key={match.slug} className="border border-line bg-[rgba(232,41,74,0.02)] p-6">
-                  <h3 className="font-display text-[0.9rem] font-bold tracking-[0.08em] text-ink uppercase">
-                    {service?.title ?? match.slug}
-                  </h3>
-                  <p className="mt-2.5 text-[0.9rem] text-pretty text-ink-subtle">
-                    {service?.body}
-                  </p>
-                  <p className="mt-4 text-sm text-pretty text-ink-muted">
-                    {match.hits.length > 0
-                      ? `You mentioned: ${match.hits.join(", ")}`
-                      : "Nothing pointed to one service, so we will start with a conversation."}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        <p className="border-t border-line pt-8 text-sm text-ink-subtle">
+        <p className="text-sm text-ink-subtle">
           Thought of something to add?{" "}
           <Link href="/contact" className="text-accent hover:underline">
             Send us a message
@@ -161,7 +132,7 @@ export function ProjectMatcher() {
           <p className="text-sm text-ink-subtle">
             {tooShort
               ? `A sentence or two is enough — ${remaining} more characters.`
-              : "It goes straight to our inbox, and you will see which services fit."}
+              : "It goes straight to our inbox, and a person reads every one."}
           </p>
         </div>
       </form>

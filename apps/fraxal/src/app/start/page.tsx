@@ -2,7 +2,7 @@ import { Container } from "@repo/ui/primitives/container";
 import type { Metadata } from "next";
 
 import { PageHeader } from "@/components/page-header";
-import { ProjectMatcher } from "./project-matcher";
+import { ProjectForm } from "./project-form";
 
 export const metadata: Metadata = {
   title: "Start a Project",
@@ -21,7 +21,7 @@ export default function StartPage() {
 
       <section className="py-16">
         <Container>
-          <ProjectMatcher />
+          <ProjectForm />
         </Container>
       </section>
     </main>
