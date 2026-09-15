@@ -617,6 +617,8 @@ export type Person = {
   linkedin?: string;
   /** Published research. Worth showing on an AI company's site when it exists. */
   scholar?: string;
+  /** For people whose work lives on music and social platforms rather than GitHub. */
+  linktree?: string;
   /**
    * The person's colour — their name and its halo both take it.
    *
@@ -662,6 +664,12 @@ export const Team: Person[] = [
     github: "https://github.com/mamounyosef",
     linkedin: "https://www.linkedin.com/in/mamoun-yosef",
     scholar: "https://scholar.google.com/citations?user=4tsrEQcAAAAJ&hl=en",
+  },
+  {
+    name: "Chris Dart",
+    accent: "#ffb347", // amber, a placeholder pick until you choose his colour
+    role: "Noise Composer / Sound Destructor",
+    linktree: "https://linktr.ee/chris_dart",
   },
 ];
 

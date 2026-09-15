@@ -255,28 +255,29 @@ export default function HomePage() {
       ) : null}
 
       {/* ── 05 · The team ──────────────────────────────────────────────────
-          Four named engineers with public profiles is a stronger signal than
+          Five named engineers with public profiles is a stronger signal than
           any amount of copy. */}
       <section className="border-t border-line py-20">
         <Container width="wide">
           <SectionHead
             eyebrow="The team"
-            title="Four engineers, all reachable"
+            title="Five engineers, all reachable"
             lede="Amman, Jordan. Every profile below is public — check the work yourself."
           />
 
-          <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {Team.map((person) => {
               const links = [
                 { label: "GitHub", href: person.github },
                 { label: "LinkedIn", href: person.linkedin },
                 { label: "Scholar", href: person.scholar },
+                { label: "Linktree", href: person.linktree },
               ].filter((link): link is { label: string; href: string } => Boolean(link.href));
 
               return (
                 <li
                   key={person.name}
-                  className="group relative border border-line bg-[rgba(232,41,74,0.02)] p-7 transition-colors duration-300 hover:border-line-strong hover:bg-[rgba(232,41,74,0.05)]"
+                  className="group relative border border-line bg-[rgba(232,41,74,0.02)] p-7 transition-colors duration-300 hover:border-line-strong hover:bg-[rgba(232,41,74,0.05)] sm:max-lg:odd:last:col-span-2"
                 >
                   <span
                     aria-hidden="true"
