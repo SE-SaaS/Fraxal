@@ -1,85 +1,72 @@
-import { Output, generateText } from "ai";
 import { z } from "zod";
 
+import { failedToSend, sendEnquiry } from "@/lib/mail";
+import { matchByKeywords } from "@/lib/match";
 import { Services } from "@/lib/site";
 
-// Long enough for a considered answer, short enough that a stuck request fails
-// rather than hanging the page.
+// Sending waits on the mail server; this is the ceiling before the function gives up.
 export const maxDuration = 30;
 
-const SLUGS = Services.map((s) => s.slug) as [string, ...string[]];
+const MIN_CHARS = 20;
+const MAX_CHARS = 4000;
 
-const schema = z.object({
-  summary: z
-    .string()
-    .describe("One sentence restating what the person wants to build, in plain language."),
-  services: z
-    .array(
-      z.object({
-        slug: z.enum(SLUGS).describe("Which service this is."),
-        why: z
-          .string()
-          .describe("One sentence on why this service applies to what they described."),
-      }),
-    )
-    .min(1)
-    .max(4)
-    .describe("Most relevant first. Only include services that genuinely apply."),
-  clarifying: z
-    .array(z.string())
-    .max(3)
-    .describe("Questions worth asking before quoting. Empty if the brief is already clear."),
-});
+const schema = z.object(
+  {
+    description: z
+      .string()
+      .trim()
+      .min(
+        MIN_CHARS,
+        "Tell us a bit more — at least a sentence or two about what you want to build.",
+      )
+      .max(MAX_CHARS, `Keep it under ${MAX_CHARS.toLocaleString("en")} characters.`),
+    email: z.email("Add an email address so we can reply."),
+    /** Honeypot — see HoneypotField. */
+    website: z.string().nullish(),
+  },
+  { error: "Could not read that request." },
+);
 
-const CATALOGUE = Services.map((s) => `- ${s.slug} (${s.title}): ${s.body}`).join("\n");
-
+/**
+ * Emails the brief to the Fraxal inbox exactly as typed, then tells the visitor
+ * which services it points to. Matching is keyword-based and free; an AI summary
+ * can slot in here later without changing the response shape.
+ */
 export async function POST(request: Request) {
-  let description: unknown;
-  try {
-    ({ description } = await request.json());
-  } catch {
-    return Response.json({ error: "Could not read that request." }, { status: 400 });
-  }
-
-  if (typeof description !== "string" || description.trim().length < 20) {
+  const parsed = schema.safeParse(await request.json().catch(() => null));
+  if (!parsed.success) {
     return Response.json(
-      { error: "Tell us a bit more — at least a sentence or two about what you want to build." },
+      { error: parsed.error.issues[0]?.message ?? "Could not read that request." },
       { status: 400 },
     );
   }
 
-  // Hard cap: a huge paste would otherwise run up the bill on one submission.
-  const brief = description.trim().slice(0, 4000);
+  const { description, email, website } = parsed.data;
+  const matches = matchByKeywords(description);
+  const reply = { services: matches.map(({ slug, hits }) => ({ slug, hits })) };
+
+  if (website) return Response.json(reply);
+
+  const titles = matches.map((m) => Services.find((s) => s.slug === m.slug)?.title ?? m.slug);
 
   try {
-    const { output } = await generateText({
-      model: "anthropic/claude-sonnet-5",
-      output: Output.object({ schema }),
-      system: [
-        "You route incoming project enquiries for Fraxal, a company that builds AI systems and the software around them.",
-        "Given a description of what someone wants to build, pick the services from the catalogue that genuinely apply.",
-        "Be honest and selective: two well-matched services beat four loose ones. Never invent a service that is not listed.",
-        "If the brief is vague about scope, budget, data or timeline, put that in clarifying questions rather than guessing.",
-        "Write for the person who submitted it — plain, direct, second person. No sales language.",
+    await sendEnquiry({
+      subject: `Project brief — ${titles.join(", ")}`,
+      replyTo: email,
+      text: [
+        description,
         "",
-        "Catalogue:",
-        CATALOGUE,
+        "—",
+        `Reply to: ${email}`,
+        `Points to: ${matches
+          .map((m, i) => (m.hits.length > 0 ? `${titles[i]} (${m.hits.join(", ")})` : titles[i]))
+          .join("; ")}`,
+        "Sent from the Start a Project page.",
       ].join("\n"),
-      prompt: brief,
     });
-
-    return Response.json(output);
   } catch (error) {
-    // Surface the shape of the failure without leaking keys or stack traces.
-    const missingKey = error instanceof Error && /api key|unauthor|credential/i.test(error.message);
-    console.error("[match] failed:", error);
-    return Response.json(
-      {
-        error: missingKey
-          ? "The matcher is not configured yet. Set AI_GATEWAY_API_KEY and try again."
-          : "The matcher could not be reached. Email us and we will read it ourselves.",
-      },
-      { status: missingKey ? 503 : 502 },
-    );
+    return failedToSend(error);
   }
+
+  return Response.json(reply);
 }
