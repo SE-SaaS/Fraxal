@@ -1,6 +1,6 @@
 "use client";
 
-import { Show } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { cn } from "@repo/ui/lib/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,6 +14,13 @@ import { Site } from "@/lib/site";
 export function SiteNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  // "Sign in" until Clerk confirms a session, so the first paint (and the static
+  // HTML) already has the link rather than a gap that fills in after load.
+  const { isSignedIn } = useAuth();
+  const account = isSignedIn
+    ? { href: AuthRoutes.account, label: "Account" }
+    : { href: AuthRoutes.signIn, label: "Sign in" };
 
   // The menu closes from the link's own onClick, not from an effect watching
   // pathname — setting state synchronously in an effect causes a second render
@@ -59,31 +66,15 @@ export function SiteNav() {
             </li>
           ))}
           <li>
-            {/* Signed in, it reads Account; otherwise it reads Sign in. */}
-            <Show
-              when="signed-in"
-              fallback={
-                <Link
-                  href={AuthRoutes.signIn}
-                  className={cn(
-                    "text-[0.76rem] font-bold tracking-[0.1em] uppercase transition-colors duration-200",
-                    isActive(AuthRoutes.signIn) ? "text-accent" : "text-ink hover:text-accent",
-                  )}
-                >
-                  Sign in
-                </Link>
-              }
+            <Link
+              href={account.href}
+              className={cn(
+                "text-[0.76rem] font-bold tracking-[0.1em] uppercase transition-colors duration-200",
+                isActive(account.href) ? "text-accent" : "text-ink hover:text-accent",
+              )}
             >
-              <Link
-                href={AuthRoutes.account}
-                className={cn(
-                  "text-[0.76rem] font-bold tracking-[0.1em] uppercase transition-colors duration-200",
-                  isActive(AuthRoutes.account) ? "text-accent" : "text-ink hover:text-accent",
-                )}
-              >
-                Account
-              </Link>
-            </Show>
+              {account.label}
+            </Link>
           </li>
           <li>
             <Link
@@ -127,26 +118,13 @@ export function SiteNav() {
             </li>
           ))}
           <li className="border-b border-line">
-            <Show
-              when="signed-in"
-              fallback={
-                <Link
-                  href={AuthRoutes.signIn}
-                  onClick={() => setOpen(false)}
-                  className="block py-3.5 text-sm font-bold tracking-[0.1em] text-ink-muted uppercase hover:text-accent"
-                >
-                  Sign in
-                </Link>
-              }
+            <Link
+              href={account.href}
+              onClick={() => setOpen(false)}
+              className="block py-3.5 text-sm font-bold tracking-[0.1em] text-ink-muted uppercase hover:text-accent"
             >
-              <Link
-                href={AuthRoutes.account}
-                onClick={() => setOpen(false)}
-                className="block py-3.5 text-sm font-bold tracking-[0.1em] text-ink-muted uppercase hover:text-accent"
-              >
-                Account
-              </Link>
-            </Show>
+              {account.label}
+            </Link>
           </li>
           <li className="pt-4">
             <Link
