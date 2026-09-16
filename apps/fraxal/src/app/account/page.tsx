@@ -16,8 +16,11 @@ export const metadata: Metadata = {
 const LABEL = "font-mono text-[0.68rem] tracking-[0.14em] text-ink-subtle uppercase";
 
 export default async function AccountPage() {
-  // The proxy already sends signed-out visitors to sign in; this is the backstop.
-  await auth.protect();
+  // The proxy already sends signed-out visitors to sign in; this is the backstop,
+  // and it sends them to the same place rather than showing a 404.
+  const { isAuthenticated, redirectToSignIn } = await auth();
+  if (!isAuthenticated) return redirectToSignIn();
+
   const user = await currentUser();
   if (!user) return null;
 
