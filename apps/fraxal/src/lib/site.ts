@@ -18,14 +18,28 @@ export const Site = {
     "Fraxal builds AI systems and the software around them — automation, models, pipelines, and the products they run inside.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   email: "fraxalengines@fraxal.dev",
+  /** Digits only, as wa.me wants them. In Jordan this is the channel people actually use. */
+  whatsapp: "962786568111",
+  whatsappDisplay: "+962 78 656 8111",
   github: "https://github.com/SE-SaaS",
   nav: [
     { href: "/#services", label: "Services" },
+    { href: "/#packages", label: "Packages" },
     { href: "/assets", label: "Assets" },
     { href: "/reviews", label: "Reviews" },
     { href: "/contact", label: "Contact" },
   ],
+  /** The /ar page is one long page, so its nav jumps within it. */
+  navAr: [
+    { href: "/ar#packages", label: "الباقات" },
+    { href: "/ar#how", label: "كيف نعمل" },
+    { href: "/ar#contact", label: "تواصل معنا" },
+  ],
 } as const;
+
+/** Opens a WhatsApp chat with Fraxal, optionally with the first message typed in. */
+export const whatsappHref = (text?: string) =>
+  `https://wa.me/${Site.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
 /**
  * Your list, in your order. Titles are tightened for the grid; the one-line
@@ -125,6 +139,107 @@ export const ProcessSteps = [
   { title: "Build", body: "Shipped in slices you can see running, not one delivery at the end." },
   { title: "Hand over", body: "Documented and readable, so it is yours to maintain without us." },
 ] as const;
+
+export type PackageCopy = {
+  name: string;
+  blurb: string;
+  includes: string[];
+};
+
+export type Package = {
+  slug: string;
+  /** In JD. Rendered as a starting price, never as a quote. */
+  price: number;
+  /** Billed every month rather than once. */
+  monthly?: boolean;
+  en: PackageCopy;
+  ar: PackageCopy;
+};
+
+/**
+ * PLACEHOLDER PRICES — 199 / 70 / 299 JD are a starting suggestion, not yours.
+ *
+ * These are the front door for local businesses: a café owner does not know
+ * what "AI Modeling" costs, but can say yes to "from 199 JD". Change a number
+ * here and both the English home page and /ar update. Every line under
+ * `includes` is a promise, so cut anything you would not deliver.
+ */
+export const Packages: Package[] = [
+  {
+    slug: "starter",
+    price: 199,
+    en: {
+      name: "Starter",
+      blurb: "A website that makes your business look as real online as it does in person.",
+      includes: [
+        "Up to 5 pages, built for phones first",
+        "Google Maps and search listing set up",
+        "WhatsApp and call buttons on every page",
+        "Arabic, English, or both",
+      ],
+    },
+    ar: {
+      name: "الانطلاقة",
+      blurb: "موقع يجعل عملك يبدو على الإنترنت بنفس الثقة التي يبدو بها على أرض الواقع.",
+      includes: [
+        "حتى 5 صفحات، مصممة للهاتف أولاً",
+        "إضافة عملك على خرائط جوجل ونتائج البحث",
+        "أزرار واتساب واتصال في كل صفحة",
+        "بالعربية أو الإنجليزية أو كليهما",
+      ],
+    },
+  },
+  {
+    slug: "growth",
+    price: 70,
+    monthly: true,
+    en: {
+      name: "Growth",
+      blurb: "We keep the site running and keep people finding you, so you can run the business.",
+      includes: [
+        "Hosting and domain kept running",
+        "Menu, price and content updates",
+        "Social media posts every month",
+        "A short monthly report: visits and calls",
+      ],
+    },
+    ar: {
+      name: "النمو",
+      blurb: "نُبقي موقعك يعمل ونُبقي الناس يجدونك، لتتفرغ أنت لإدارة عملك.",
+      includes: [
+        "استضافة ونطاق يعملان دائماً",
+        "تحديث القوائم والأسعار والمحتوى",
+        "منشورات على السوشال ميديا كل شهر",
+        "تقرير شهري مختصر: الزيارات والاتصالات",
+      ],
+    },
+  },
+  {
+    slug: "ai-assistant",
+    price: 299,
+    en: {
+      name: "AI Assistant",
+      blurb:
+        "A WhatsApp or Instagram assistant that answers your customers at 2am, so you do not have to.",
+      includes: [
+        "Answers questions, prices and opening hours",
+        "Takes bookings and orders",
+        "Hands anything tricky over to you",
+        "Understands Arabic and English",
+      ],
+    },
+    ar: {
+      name: "المساعد الذكي",
+      blurb: "مساعد على واتساب أو إنستغرام يرد على زبائنك في الثانية فجراً، بدلاً منك.",
+      includes: [
+        "يجيب عن الأسئلة والأسعار وأوقات الدوام",
+        "يستقبل الحجوزات والطلبات",
+        "يحوّل إليك أي سؤال صعب",
+        "يفهم العربية والإنجليزية",
+      ],
+    },
+  },
+];
 
 /** Order here is the order the storefront renders its sections in. */
 export const AssetCategories = [
@@ -271,6 +386,15 @@ export type Project = {
  */
 export const Projects: Project[] = [
   {
+    // Client work, not a repo — so no link until the live URL is confirmed,
+    // and the doctor stays unnamed until the clinic agrees to be shown.
+    name: "Pelvic Floor Clinic",
+    blurb:
+      "A bilingual Arabic and English website for a private clinic in Amman, replacing their Wix site. Booking goes straight to WhatsApp, with no patient data stored and no tracking, built around Jordan's data protection law.",
+    stack: ["Next.js", "Arabic / English", "WhatsApp booking"],
+    note: "Client project · Amman",
+  },
+  {
     name: "Health-Navigator",
     blurb:
       "An agentic medical assistant that reasons over patient data through multi-agent orchestration, combining pre-trained ML models with relational and vector databases.",
@@ -350,6 +474,8 @@ export const Projects: Project[] = [
  * order it appears in `Projects`. Reordering the site is editing this line.
  */
 export const FeaturedOrder: string[] = [
+  // The one paying client leads: it is the proof the packages above it sell.
+  "Pelvic Floor Clinic",
   // Your three, in your order.
   "ChaosX Engine",
   "GravitySort",

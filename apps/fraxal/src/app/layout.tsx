@@ -1,6 +1,6 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata, Viewport } from "next";
-import { Orbitron, Rajdhani, Russo_One } from "next/font/google";
+import { Cairo, Noto_Kufi_Arabic, Orbitron, Rajdhani, Russo_One } from "next/font/google";
 
 import { ScrollJump } from "@/components/scroll-jump";
 import { SiteFooter } from "@/components/site-footer";
@@ -33,6 +33,25 @@ const wordmark = Russo_One({
   display: "swap",
 });
 
+// The Arabic pair, used under [lang="ar"] only (see globals.css). Not preloaded,
+// so the English pages never download them; Kufi's geometry sits closest to
+// Orbitron for headings, Cairo stays readable at body sizes.
+const arBody = Cairo({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-ar-body",
+  display: "swap",
+  preload: false,
+});
+
+const arDisplay = Noto_Kufi_Arabic({
+  subsets: ["arabic"],
+  weight: ["700", "900"],
+  variable: "--font-ar-display",
+  display: "swap",
+  preload: false,
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(Site.url),
   title: {
@@ -58,7 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${body.variable} ${display.variable} ${wordmark.variable} scroll-smooth`}
+      className={`${body.variable} ${display.variable} ${wordmark.variable} ${arBody.variable} ${arDisplay.variable} scroll-smooth`}
     >
       <body>
         {/* Inside <body>, not around <html>, so it never forces pages dynamic. */}

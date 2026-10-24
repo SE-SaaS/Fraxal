@@ -107,6 +107,17 @@
     background: var(--color-accent);
     color: var(--color-accent-ink);
   }
+
+  /* Arabic swaps both faces by redefining the theme's own font tokens, so
+     `font-display` and the body text follow without a second set of classes.
+     Never letter-space Arabic: tracking pulls the letters out of their joins. */
+  [lang="ar"] {
+    --font-sans: var(--font-ar-body), "Cairo", ui-sans-serif, system-ui, sans-serif;
+    --font-display: var(--font-ar-display), var(--font-ar-body), "Noto Kufi Arabic", sans-serif;
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    line-height: 1.85;
+  }
 }
 
 /*

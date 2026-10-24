@@ -6,7 +6,17 @@ import type { CSSProperties } from "react";
 
 import { Logo } from "@/components/logo";
 import { NeuralField } from "@/components/neural-field";
-import { FeaturedOrder, Pillars, ProcessSteps, Projects, Services, Site, Team } from "@/lib/site";
+import { PackageCards } from "@/components/package-cards";
+import {
+  FeaturedOrder,
+  Pillars,
+  ProcessSteps,
+  Projects,
+  Services,
+  Site,
+  Team,
+  whatsappHref,
+} from "@/lib/site";
 
 /** The reference button treatment: gradient fill, tracked-out caps, hover lift. */
 const CTA_BASE =
@@ -130,6 +140,25 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+        </Container>
+      </section>
+
+      {/* ── 02b · Packages ─────────────────────────────────────────────────
+          The nine services say what we can do; this says what it costs to
+          start. Without a number, most small businesses never fill the form. */}
+      <section id="packages" className="scroll-mt-24 border-t border-line py-20">
+        <Container width="wide">
+          <SectionHead
+            eyebrow="Packages"
+            title="Three ways to start"
+            lede="Starting prices for local businesses. Bigger or custom work is quoted after a free first conversation."
+          />
+          <PackageCards lang="en" />
+          <p className="mt-10 text-sm text-ink-subtle">
+            <Link href="/ar" lang="ar" dir="rtl" className="text-accent hover:underline">
+              اقرأ هذه الصفحة بالعربية ←
+            </Link>
+          </p>
         </Container>
       </section>
 
@@ -348,6 +377,17 @@ export default function HomePage() {
                 Just a question
               </Link>
             </div>
+            <p className="mt-8 text-sm text-ink-subtle">
+              Or message us on{" "}
+              <a
+                href={whatsappHref()}
+                target="_blank"
+                rel="noreferrer"
+                className="text-accent hover:underline"
+              >
+                WhatsApp · {Site.whatsappDisplay}
+              </a>
+            </p>
           </div>
         </Container>
       </section>
